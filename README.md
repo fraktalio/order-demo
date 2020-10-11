@@ -1,4 +1,4 @@
-# Restaurant - demo
+# Order - demo
 
 <table>
     <tr>
@@ -125,16 +125,14 @@
 
 
 
-## Event modeling
-[Event Modeling](https://eventmodeling.org/) is a method of describing systems using an example of how information has changed within them over time.
-
 ### Systems Landscape
-#### What a system(s) is/are supposed to do from start to finish, on a time line and with no branching:
+[Event Modeling](https://eventmodeling.org/) is a method of describing systems using an example of how information has changed within them over time.
 ![event modeling](.assets/event-model-systems-landscape.jpg)
 
+The systems landscape consists of three systems [order management](https://github.com/fraktalio/order-demo), [restaurant management](https://github.com/fraktalio/restaurant-demo) and [courier management](https://github.com/fraktalio/courier-demo)
 
 ### **Order Management System**
-#### **Focus is on the Order Management context/system within this Github repository**:
+**Focus is on the Order Management context/system within this Github repository**:
 ![event modeling](.assets/event-model.jpg)
 
 #### “specification by example” is extended into the realm of system design:
