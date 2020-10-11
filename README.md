@@ -132,10 +132,8 @@
 The systems landscape consists of three systems [order management](https://github.com/fraktalio/order-demo), [restaurant management](https://github.com/fraktalio/restaurant-demo) and [courier management](https://github.com/fraktalio/courier-demo)
 
 ### **Order Management System**
-**Focus is on the Order Management context/system within this Github repository**:
 ![event modeling](.assets/event-model.jpg)
 
-#### “specification by example” is extended into the realm of system design:
 ![spec by example](.assets/spec-by-example.jpg)
 
 
