@@ -29,7 +29,7 @@
         </td>
         <td>
             <ul>
-                <li>Kotlin</li>
+                <li>Java</li>
                 <li>Axon</li>
                 <li>Spring(Boot)</li>
                 <li>SQL(Postgres)</li>
@@ -105,18 +105,19 @@
     <tr>
         <td colspan="1">
             <ul>
-                <li>PlaceRestaurantOrderCommand</li>
-                <li>CreateShipmentCommand</li>
+                <li>FindAllMenusQuery (Restaurant)</li>
+                <li>PlaceRestaurantOrderCommand (Restaurant)</li>
+                <li>CreateShipmentCommand (Courier)</li>
             </ul>
         </td>
         <td colspan="2">
             <ul>
-               <li>RestaurantOrderRejectedEvent</li>
-               <li>RestaurantOrderPlacedEvent</li>
-               <li>RestaurantOrderPreparedEvent</li>
-               <li>ShipmentCollectedEvent</li>
-               <li>ShipmentExpiredEvent</li>
-               <li>ShipmentDeliveredEvent</li>
+               <li>RestaurantOrderRejectedEvent (Restaurant)</li>
+               <li>RestaurantOrderPlacedEvent (Restaurant)</li>
+               <li>RestaurantOrderPreparedEvent (Restaurant)</li>
+               <li>ShipmentCollectedEvent (Courier)</li>
+               <li>ShipmentExpiredEvent (Courier)</li>
+               <li>ShipmentDeliveredEvent (Courier)</li>
            </ul>
         </td>
     </tr>
