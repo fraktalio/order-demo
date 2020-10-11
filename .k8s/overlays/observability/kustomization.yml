@@ -1,0 +1,23 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+bases:
+  - ../../base # relative path to the base folder
+
+resources:
+  - alertmanager/alertmanager-configmap.yml
+  - alertmanager/alertmanager-templates-configmap.yml
+  - alertmanager/alertmanager-deployment.yml
+  - alertmanager/alertmanager-services.yml
+  - prometheus/prometheus-configmap.yml
+  - prometheus/prometheus-deployment.yml
+  - prometheus/prometheus-services.yml
+  - grafana/grafana-datasource-configmap.yml
+  - grafana/grafana-dashboards-configmap.yml
+  - grafana/grafana-deployment.yml
+  - grafana/grafana-services.yml
+  - opentracing-jaeger/jaeger-deployment.yml
+  - opentracing-jaeger/jaeger-services.yml
+
+patchesStrategicMerge:
+  - app-configmap.yml

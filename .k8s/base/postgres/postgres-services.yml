@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-order
+  labels:
+    app: postgres-order
+spec:
+  ports:
+    - port: 5432
+      name: postgres-order
+  clusterIP: None
+  selector:
+    app: postgres-order

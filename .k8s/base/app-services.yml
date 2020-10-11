@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: order
+  name: order
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/path: "/actuator/prometheus"
+    prometheus.io/port: "8081"
+spec:
+  ports:
+    - name: 8082-8082
+      port: 8082
+      protocol: TCP
+      targetPort: 8082
+    - name: 7002-7002
+      port: 7002
+      protocol: TCP
+      targetPort: 7002
+  selector:
+    app: order
+  type: LoadBalancer
+  # Sticky Session: If you want to make sure that connections from a particular client are passed to the same Pod each time, you can select the session affinity based on the client's IP addresses by setting service.spec.sessionAffinity to "ClientIP" (the default is "None").
+  sessionAffinity: ClientIP

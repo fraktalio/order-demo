@@ -1,0 +1,13 @@
+apiVersion: v1
+data:
+  AXON_AXONSERVER_COMPONENT-NAME: "order-k18"
+  AXON_AXONSERVER_SERVERS: "axonserver-0.axonserver.default.svc.cluster.local:8124"
+  SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-order-0.postgres-order.default.svc.cluster.local:5432/order
+  SPRING_DATASOURCE_USERNAME: demouser
+  SPRING_DATASOURCE_PASSWORD: thepassword
+  SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.PostgreSQLDialect
+  SPRING_JPA_PROPERTIES_HIBERNATE_JDBC_LOB_NON-CONTEXTUAL-CREATION: "true"
+  SPRING_JPA_HIBERNATE_DDL-AUTO: "create-drop"
+kind: ConfigMap
+metadata:
+  name: order

@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: order
+  name: order
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: order
+  template:
+    metadata:
+      labels:
+        app: order
+    spec:
+      containers:
+        - image: order:latest
+          name: order
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: order
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8082
+            initialDelaySeconds: 5
+            timeoutSeconds: 1
+            periodSeconds: 15
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8082
+            initialDelaySeconds: 15
+            timeoutSeconds: 1
+            periodSeconds: 15

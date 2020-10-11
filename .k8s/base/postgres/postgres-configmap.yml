@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-config-demo-order
+  labels:
+    app: postgres-order
+data:
+  POSTGRES_DB: order
+  POSTGRES_USER: demouser
+  POSTGRES_PASSWORD: thepassword

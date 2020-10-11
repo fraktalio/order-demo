@@ -1,0 +1,16 @@
+apiVersion: skaffold/v1
+kind: Config
+build:
+  tagPolicy:
+    gitCommit: {}
+  artifacts:
+    - image: order
+      jib: {}
+deploy:
+  kustomize:
+    path: "./.k8s/overlays/standard"
+profiles:
+  - name: observability
+    deploy:
+      kustomize:
+        path: "./.k8s/overlays/observability"
