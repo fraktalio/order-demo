@@ -63,7 +63,7 @@ public class OrderCommandConfiguration {
 
     @Bean("orderSnapshotTriggerDefinition")
     EventCountSnapshotTriggerDefinition orderSnapshotTriggerDefinition(Snapshotter snapshotter,
-                                                                         OrderProperties orderProperties) {
+                                                                       OrderProperties orderProperties) {
         return new EventCountSnapshotTriggerDefinition(snapshotter,
                                                        orderProperties.getSnapshotTriggerThresholdOrder());
     }

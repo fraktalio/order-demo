@@ -2,11 +2,12 @@ package com.fraktalio.order.command.api;
 
 import java.util.Objects;
 
-public final class OrderAcceptedEvent {
+public final class OrderAcceptedEvent extends AbstractOrderEvent {
 
     private final OrderId aggregateIdentifier;
 
-    public OrderAcceptedEvent(OrderId aggregateIdentifier) {
+    public OrderAcceptedEvent(AuditEntry auditEntry, OrderId aggregateIdentifier) {
+        super(auditEntry);
         this.aggregateIdentifier = aggregateIdentifier;
     }
 

@@ -1,18 +1,17 @@
 package com.fraktalio.order.command.api;
 
 
-import com.google.type.Money;
-
+import java.math.BigDecimal;
 import java.util.Objects;
 
 public final class OrderLineItem {
 
     private final String menuItemId;
     private final String name;
-    private final Money price;
+    private final BigDecimal price;
     private final Integer quantity;
 
-    public OrderLineItem(String menuItemId, String name, Money price, Integer quantity) {
+    public OrderLineItem(String menuItemId, String name, BigDecimal price, Integer quantity) {
         this.menuItemId = menuItemId;
         this.name = name;
         this.price = price;
@@ -27,7 +26,7 @@ public final class OrderLineItem {
         return name;
     }
 
-    public Money getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 

@@ -3,7 +3,7 @@ package com.fraktalio.order.command.api;
 import java.util.List;
 import java.util.Objects;
 
-public final class OrderPlacedEvent {
+public final class OrderPlacedEvent extends AbstractOrderEvent {
 
     private final OrderId aggregateIdentifier;
     private final RestaurantId restaurantId;
@@ -11,8 +11,10 @@ public final class OrderPlacedEvent {
     private final String deliveryAddress;
 
 
-    public OrderPlacedEvent(OrderId aggregateIdentifier, RestaurantId restaurantId,
+    public OrderPlacedEvent(AuditEntry auditEntry, OrderId aggregateIdentifier,
+                            RestaurantId restaurantId,
                             List<OrderLineItem> orderLineItems, String deliveryAddress) {
+        super(auditEntry);
         this.aggregateIdentifier = aggregateIdentifier;
         this.restaurantId = restaurantId;
         this.orderLineItems = orderLineItems;

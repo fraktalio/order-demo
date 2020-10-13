@@ -26,11 +26,11 @@ spec:
             - name: http
               containerPort: 8024
               protocol: TCP
-#          volumeMounts:
-#            - name: eventstore
-#              mountPath: /eventdata
-#            - name: data
-#              mountPath: /data
+          #          volumeMounts:
+          #            - name: eventstore
+          #              mountPath: /eventdata
+          #            - name: data
+          #              mountPath: /data
           readinessProbe:
             httpGet:
               port: http

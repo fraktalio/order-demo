@@ -2,7 +2,7 @@ package com.fraktalio.order.command.api;
 
 import java.util.Objects;
 
-public final class OrderCollectedEvent {
+public final class OrderCollectedEvent extends AbstractOrderEvent {
 
     private final OrderId aggregateIdentifier;
 
@@ -23,7 +23,8 @@ public final class OrderCollectedEvent {
         return Objects.hash(aggregateIdentifier);
     }
 
-    public OrderCollectedEvent(OrderId aggregateIdentifier) {
+    public OrderCollectedEvent(AuditEntry auditEntry, OrderId aggregateIdentifier) {
+        super(auditEntry);
         this.aggregateIdentifier = aggregateIdentifier;
     }
 

@@ -2,10 +2,10 @@ apiVersion: skaffold/v1
 kind: Config
 build:
   tagPolicy:
-    gitCommit: {}
+    gitCommit: { }
   artifacts:
     - image: order
-      jib: {}
+      jib: { }
 deploy:
   kustomize:
     path: "./.k8s/overlays/standard"

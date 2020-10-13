@@ -66,7 +66,8 @@ class Order {
      */
     @CommandHandler
     Order(PlaceOrderCommand command, @MetaDataValue(value = "auditEntry") AuditEntry auditEntry) {
-        apply(new OrderPlacedEvent(command.getTargetAggregateIdentifier(),
+        apply(new OrderPlacedEvent(auditEntry,
+                                   command.getTargetAggregateIdentifier(),
                                    command.getRestaurantId(),
                                    command.getOrderLineItems(),
                                    command.getDeliveryAddress()));
@@ -82,9 +83,9 @@ class Order {
     }
 
     @CommandHandler
-    void on(RejectOrderCommand command) {
+    void on(RejectOrderCommand command, @MetaDataValue(value = "auditEntry") AuditEntry auditEntry) {
         if (OrderState.PLACED == orderState) {
-            apply(new OrderRejectedEvent(command.getTargetAggregateIdentifier()));
+            apply(new OrderRejectedEvent(auditEntry, command.getTargetAggregateIdentifier()));
         } else {
             throw new UnsupportedOperationException(ExceptionStatusCode.ORDER_NOT_PLACED.name());
         }
@@ -97,9 +98,9 @@ class Order {
     }
 
     @CommandHandler
-    void on(AcceptOrderCommand command) {
+    void on(AcceptOrderCommand command, @MetaDataValue(value = "auditEntry") AuditEntry auditEntry) {
         if (OrderState.PLACED == orderState) {
-            apply(new OrderAcceptedEvent(command.getTargetAggregateIdentifier()));
+            apply(new OrderAcceptedEvent(auditEntry, command.getTargetAggregateIdentifier()));
         } else {
             throw new UnsupportedOperationException(ExceptionStatusCode.ORDER_NOT_PLACED.name());
         }
@@ -112,9 +113,10 @@ class Order {
     }
 
     @CommandHandler
-    void on(MarkOrderAsPreparedCommand command) {
+    void on(MarkOrderAsPreparedCommand command, @MetaDataValue(value = "auditEntry") AuditEntry auditEntry) {
         if (OrderState.ACCEPTED == orderState) {
-            apply(new OrderPreparedEvent(command.getTargetAggregateIdentifier(),
+            apply(new OrderPreparedEvent(auditEntry,
+                                         command.getTargetAggregateIdentifier(),
                                          restaurantId,
                                          orderLineItems,
                                          deliveryAddress));
@@ -130,9 +132,9 @@ class Order {
     }
 
     @CommandHandler
-    void on(MarkOrderAsCollectedCommand command) {
+    void on(MarkOrderAsCollectedCommand command, @MetaDataValue(value = "auditEntry") AuditEntry auditEntry) {
         if (OrderState.PREPARED == orderState) {
-            apply(new OrderCollectedEvent(command.getTargetAggregateIdentifier()));
+            apply(new OrderCollectedEvent(auditEntry, command.getTargetAggregateIdentifier()));
         } else {
             throw new UnsupportedOperationException(ExceptionStatusCode.ORDER_NOT_PREPARED.name());
         }
@@ -145,12 +147,13 @@ class Order {
     }
 
     @CommandHandler
-    void on(MarkOrderAsDeliveredCommand command) {
+    void on(MarkOrderAsDeliveredCommand command, @MetaDataValue(value = "auditEntry") AuditEntry auditEntry) {
         if (OrderState.COLLECTED == orderState) {
-            apply(new OrderDeliveredEvent(command.getTargetAggregateIdentifier(),
-                                                restaurantId,
-                                                orderLineItems,
-                                                deliveryAddress));
+            apply(new OrderDeliveredEvent(auditEntry,
+                                          command.getTargetAggregateIdentifier(),
+                                          restaurantId,
+                                          orderLineItems,
+                                          deliveryAddress));
         } else {
             throw new UnsupportedOperationException(ExceptionStatusCode.ORDER_NOT_COLLECTED.name());
         }
@@ -163,9 +166,9 @@ class Order {
     }
 
     @CommandHandler
-    void on(MarkOrderAsPayedCommand command) {
+    void on(MarkOrderAsPayedCommand command, @MetaDataValue(value = "auditEntry") AuditEntry auditEntry) {
         if (OrderState.DELIVERED == orderState) {
-            apply(new OrderPayedEvent(command.getTargetAggregateIdentifier()));
+            apply(new OrderPayedEvent(auditEntry, command.getTargetAggregateIdentifier()));
         } else {
             throw new UnsupportedOperationException(ExceptionStatusCode.ORDER_NOT_DELIVERED.name());
         }
@@ -178,8 +181,8 @@ class Order {
     }
 
     @CommandHandler
-    void on(MarkOrderAsExpiredCommand command) {
-        apply(new OrderExpiredEvent(command.getTargetAggregateIdentifier()));
+    void on(MarkOrderAsExpiredCommand command, @MetaDataValue(value = "auditEntry") AuditEntry auditEntry) {
+        apply(new OrderExpiredEvent(auditEntry, command.getTargetAggregateIdentifier()));
     }
 
     @EventSourcingHandler
