@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div align="center" style="color: orange">
+    <h1>Something went wrong! </h1>
+    <h2>Error seems to have been caused by the client or you.</h2>
+    <a href="/">Go Home</a></div>
+<p th:text="${error}">Error Info</p>
+<p th:text="${status}">Status</p>
+</body>
+</body>
+</html>
