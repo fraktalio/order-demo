@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout-manager}">
+<head>
+    <title>Index</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <section class="my-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Order management</h1>
+                    <p class="text-muted">Managing general Order information.</p>
+                    <img class="img-responsive" width="100%" th:src="@{img/event-model.jpg}"
+                         alt="event model of restaurant management context"/>
+                    <p class="text-muted">The query model is continuously updated to contain a certain representation of
+                        the current state (state view), based on the events. This way, every feature in the workflow has
+                        its own view (own table, own DB schema, ...). This is <b>CQRS pattern</b>.</p>
+                    <p class="text-muted">CQRS enables/unlocks <b>Event Sourcing pattern</b>. Event Sourcing mandates
+                        that the state change of the application isn't explicitly stored in the database as the new
+                        state (overwriting the previous state) but as a series of events. This way you don't loose any
+                        data/information. Everything that happened in the system is stored.</p>
+                    <img class="img-responsive" width="100%" th:src="@{img/spec-by-example.jpg}" alt="spec by example of courier management context"/>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+</body>
+</html>

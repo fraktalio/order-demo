@@ -59,7 +59,8 @@ class OrderHandler {
                                                                                                    oli.getPrice(),
                                                                                                    oli.getQuantity()))
                                                                .collect(Collectors.toList()),
-                                                          event.getDeliveryAddress()));
+                                                          event.getDeliveryAddress(),
+                                                          event.getUserId()));
 
         queryUpdateEmitter.emit(
                 FindAllOrdersQuery.class,

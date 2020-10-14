@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE"></title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}" type="text/css"/>
+    <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/1.16.0/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.5.0/js/bootstrap.min.js}"></script>
+</head>
+<body>
+
+<!-- Main Navigation -->
+<nav class="navbar navbar-expand-md navbar-dark bg-success sticky-top">
+    <a class="navbar-brand" th:href="@{/}">Home</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar"
+            aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/customer-orders}">My Orders</a>
+            </li>
+            <li>
+                <a class="btn-danger nav-link" th:href="@{/logout}">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Content Section -->
+<section layout:fragment="content">
+    <p>This is filled by the content template.</p>
+</section>
+
+<!-- Footer -->
+<footer class="fixed-bottom bg-light text-center">
+    <p class="text-muted">&copy; 2020 <a href="https://fraktalio.com">fraktalio.com</a>. All rights reserved.</p>
+</footer>
+
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+</body>
+</html>

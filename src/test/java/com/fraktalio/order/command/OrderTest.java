@@ -56,7 +56,8 @@ public class OrderTest {
         var orderPlacedEvent = new OrderPlacedEvent(auditEntry, targetAggregateIdentifier,
                                                     restaurantId,
                                                     Collections.singletonList(item1),
-                                                    "address");
+                                                    "address",
+                                                    "anonymous");
 
         testFixture.given()
                    .when(placeOrderCommand)
@@ -70,7 +71,8 @@ public class OrderTest {
         var orderPlacedEvent = new OrderPlacedEvent(auditEntry, targetAggregateIdentifier,
                                                     restaurantId,
                                                     Collections.singletonList(item1),
-                                                    "address");
+                                                    "address",
+                                                    "anonymous");
         var acceptOrderCommand = new AcceptOrderCommand(targetAggregateIdentifier);
         var orderAcceptedEvent = new OrderAcceptedEvent(auditEntry, targetAggregateIdentifier);
 
@@ -86,7 +88,8 @@ public class OrderTest {
         var orderPlacedEvent = new OrderPlacedEvent(auditEntry, targetAggregateIdentifier,
                                                     restaurantId,
                                                     Collections.singletonList(item1),
-                                                    "address");
+                                                    "address",
+                                                    "anonymous");
         var rejectOrderCommand = new RejectOrderCommand(targetAggregateIdentifier);
         var orderRejectedEvent = new OrderRejectedEvent(auditEntry, targetAggregateIdentifier);
 
@@ -102,7 +105,8 @@ public class OrderTest {
         var orderPlacedEvent = new OrderPlacedEvent(auditEntry, targetAggregateIdentifier,
                                                     restaurantId,
                                                     Collections.singletonList(item1),
-                                                    "address");
+                                                    "address",
+                                                    "anonymous");
         var orderAcceptedEvent = new OrderAcceptedEvent(auditEntry, targetAggregateIdentifier);
         var markOrderAsPreparedCommand = new MarkOrderAsPreparedCommand(targetAggregateIdentifier);
         var orderPreparedEvent = new OrderPreparedEvent(auditEntry, targetAggregateIdentifier,
@@ -123,7 +127,8 @@ public class OrderTest {
         var orderPlacedEvent = new OrderPlacedEvent(auditEntry, targetAggregateIdentifier,
                                                     restaurantId,
                                                     Collections.singletonList(item1),
-                                                    "address");
+                                                    "address",
+                                                    "anonymous");
         var orderAcceptedEvent = new OrderAcceptedEvent(auditEntry, targetAggregateIdentifier);
         var orderPreparedEvent = new OrderPreparedEvent(auditEntry, targetAggregateIdentifier,
                                                         restaurantId,
@@ -145,7 +150,8 @@ public class OrderTest {
         var orderPlacedEvent = new OrderPlacedEvent(auditEntry, targetAggregateIdentifier,
                                                     restaurantId,
                                                     Collections.singletonList(item1),
-                                                    "address");
+                                                    "address",
+                                                    "anonymous");
         var orderAcceptedEvent = new OrderAcceptedEvent(auditEntry, targetAggregateIdentifier);
         var orderPreparedEvent = new OrderPreparedEvent(auditEntry, targetAggregateIdentifier,
                                                         restaurantId,
@@ -172,7 +178,8 @@ public class OrderTest {
         var orderPlacedEvent = new OrderPlacedEvent(auditEntry, targetAggregateIdentifier,
                                                     restaurantId,
                                                     Collections.singletonList(item1),
-                                                    "address");
+                                                    "address",
+                                                    "anonymous");
         var orderAcceptedEvent = new OrderAcceptedEvent(auditEntry, targetAggregateIdentifier);
         var orderPreparedEvent = new OrderPreparedEvent(auditEntry, targetAggregateIdentifier,
                                                         restaurantId,

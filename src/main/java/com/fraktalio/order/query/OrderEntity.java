@@ -20,14 +20,16 @@ class OrderEntity {
     private String deliveryAddress;
     @Enumerated(EnumType.STRING)
     private OrderStatus orderState;
+    private String userId;
 
     OrderEntity(String id, String restaurantId,
-                List<OrderLineItemEntity> orderLineItems, String deliveryAddress) {
+                List<OrderLineItemEntity> orderLineItems, String deliveryAddress, String userId) {
         this.id = id;
         this.restaurantId = restaurantId;
         this.orderLineItems = orderLineItems;
         this.deliveryAddress = deliveryAddress;
         this.orderState = OrderStatus.PLACED;
+        this.userId = userId;
     }
 
     protected OrderEntity() {
@@ -71,5 +73,13 @@ class OrderEntity {
 
     void setOrderState(OrderStatus orderState) {
         this.orderState = orderState;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

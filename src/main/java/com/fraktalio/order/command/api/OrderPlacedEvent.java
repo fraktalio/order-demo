@@ -9,16 +9,18 @@ public final class OrderPlacedEvent extends AbstractOrderEvent {
     private final RestaurantId restaurantId;
     private final List<OrderLineItem> orderLineItems;
     private final String deliveryAddress;
+    private final String userId;
 
 
     public OrderPlacedEvent(AuditEntry auditEntry, OrderId aggregateIdentifier,
                             RestaurantId restaurantId,
-                            List<OrderLineItem> orderLineItems, String deliveryAddress) {
+                            List<OrderLineItem> orderLineItems, String deliveryAddress, String userId) {
         super(auditEntry);
         this.aggregateIdentifier = aggregateIdentifier;
         this.restaurantId = restaurantId;
         this.orderLineItems = orderLineItems;
         this.deliveryAddress = deliveryAddress;
+        this.userId = userId;
     }
 
     public OrderId getAggregateIdentifier() {
@@ -37,6 +39,10 @@ public final class OrderPlacedEvent extends AbstractOrderEvent {
         return deliveryAddress;
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -46,14 +52,15 @@ public final class OrderPlacedEvent extends AbstractOrderEvent {
             return false;
         }
         OrderPlacedEvent that = (OrderPlacedEvent) o;
-        return aggregateIdentifier.equals(that.aggregateIdentifier) &&
+        return Objects.equals(aggregateIdentifier, that.aggregateIdentifier) &&
                 Objects.equals(restaurantId, that.restaurantId) &&
                 Objects.equals(orderLineItems, that.orderLineItems) &&
-                Objects.equals(deliveryAddress, that.deliveryAddress);
+                Objects.equals(deliveryAddress, that.deliveryAddress) &&
+                Objects.equals(userId, that.userId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(aggregateIdentifier, restaurantId, orderLineItems, deliveryAddress);
+        return Objects.hash(aggregateIdentifier, restaurantId, orderLineItems, deliveryAddress, userId);
     }
 }

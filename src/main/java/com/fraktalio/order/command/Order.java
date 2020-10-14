@@ -70,7 +70,8 @@ class Order {
                                    command.getTargetAggregateIdentifier(),
                                    command.getRestaurantId(),
                                    command.getOrderLineItems(),
-                                   command.getDeliveryAddress()));
+                                   command.getDeliveryAddress(),
+                                   auditEntry.getWho()));
     }
 
     @EventSourcingHandler
