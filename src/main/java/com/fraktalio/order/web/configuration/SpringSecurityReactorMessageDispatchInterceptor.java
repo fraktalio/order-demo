@@ -1,4 +1,4 @@
-package com.fraktalio.order.adapter.configuration;
+package com.fraktalio.order.web.configuration;
 
 import com.fraktalio.order.command.api.AuditEntry;
 import org.axonframework.extensions.reactor.messaging.ReactorMessageDispatchInterceptor;

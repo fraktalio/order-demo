@@ -1,6 +1,6 @@
 package com.fraktalio.order.command;
 
-import com.fraktalio.order.adapter.configuration.SpringSecurityReactorMessageDispatchInterceptor;
+import com.fraktalio.order.web.configuration.SpringSecurityReactorMessageDispatchInterceptor;
 import com.fraktalio.order.command.api.AcceptOrderCommand;
 import com.fraktalio.order.command.api.AuditEntry;
 import com.fraktalio.order.command.api.MarkOrderAsCollectedCommand;
