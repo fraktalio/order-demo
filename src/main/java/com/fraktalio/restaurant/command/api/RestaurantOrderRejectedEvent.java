@@ -3,6 +3,7 @@ package com.fraktalio.restaurant.command.api;
 import java.util.Objects;
 
 public final class RestaurantOrderRejectedEvent {
+
     private final RestaurantOrderId aggregateIdentifier;
     private final String reason;
 

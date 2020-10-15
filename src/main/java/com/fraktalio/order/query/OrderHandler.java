@@ -8,6 +8,7 @@ import com.fraktalio.order.command.api.OrderExpiredEvent;
 import com.fraktalio.order.command.api.OrderPayedEvent;
 import com.fraktalio.order.command.api.OrderPlacedEvent;
 import com.fraktalio.order.command.api.OrderPreparedEvent;
+import com.fraktalio.order.query.api.FindAllOrdersByUserIdQuery;
 import com.fraktalio.order.query.api.FindAllOrdersQuery;
 import com.fraktalio.order.query.api.OrderLineItemModel;
 import com.fraktalio.order.query.api.OrderModel;
@@ -66,6 +67,11 @@ class OrderHandler {
                 FindAllOrdersQuery.class,
                 filter -> true,
                 convert(record));
+
+        queryUpdateEmitter.emit(
+                FindAllOrdersByUserIdQuery.class,
+                query -> query.getUserId().equals(record.getUserId()),
+                convert(record));
     }
 
     @EventHandler
@@ -80,6 +86,11 @@ class OrderHandler {
         queryUpdateEmitter.emit(
                 FindAllOrdersQuery.class,
                 filter -> true,
+                convert(record));
+
+        queryUpdateEmitter.emit(
+                FindAllOrdersByUserIdQuery.class,
+                query -> query.getUserId().equals(record.getUserId()),
                 convert(record));
     }
 
@@ -96,6 +107,11 @@ class OrderHandler {
                 FindAllOrdersQuery.class,
                 filter -> true,
                 convert(record));
+
+        queryUpdateEmitter.emit(
+                FindAllOrdersByUserIdQuery.class,
+                query -> query.getUserId().equals(record.getUserId()),
+                convert(record));
     }
 
     @EventHandler
@@ -110,6 +126,11 @@ class OrderHandler {
         queryUpdateEmitter.emit(
                 FindAllOrdersQuery.class,
                 filter -> true,
+                convert(record));
+
+        queryUpdateEmitter.emit(
+                FindAllOrdersByUserIdQuery.class,
+                query -> query.getUserId().equals(record.getUserId()),
                 convert(record));
     }
 
@@ -126,6 +147,11 @@ class OrderHandler {
                 FindAllOrdersQuery.class,
                 filter -> true,
                 convert(record));
+
+        queryUpdateEmitter.emit(
+                FindAllOrdersByUserIdQuery.class,
+                query -> query.getUserId().equals(record.getUserId()),
+                convert(record));
     }
 
     @EventHandler
@@ -140,6 +166,11 @@ class OrderHandler {
         queryUpdateEmitter.emit(
                 FindAllOrdersQuery.class,
                 filter -> true,
+                convert(record));
+
+        queryUpdateEmitter.emit(
+                FindAllOrdersByUserIdQuery.class,
+                query -> query.getUserId().equals(record.getUserId()),
                 convert(record));
     }
 
@@ -156,11 +187,23 @@ class OrderHandler {
                 FindAllOrdersQuery.class,
                 filter -> true,
                 convert(record));
+
+        queryUpdateEmitter.emit(
+                FindAllOrdersByUserIdQuery.class,
+                query -> query.getUserId().equals(record.getUserId()),
+                convert(record));
     }
 
     @QueryHandler
     List<OrderModel> on(FindAllOrdersQuery query, @MetaDataValue(value = "auditEntry") AuditEntry auditEntry) {
         return orderRepository.findAll().stream()
+                              .map(this::convert)
+                              .collect(Collectors.toList());
+    }
+
+    @QueryHandler
+    List<OrderModel> on(FindAllOrdersByUserIdQuery query, @MetaDataValue(value = "auditEntry") AuditEntry auditEntry) {
+        return orderRepository.findAllByUserId(query.getUserId()).stream()
                               .map(this::convert)
                               .collect(Collectors.toList());
     }

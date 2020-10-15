@@ -3,7 +3,6 @@ package com.fraktalio.order.query.api;
 
 import java.math.BigDecimal;
 import java.util.Objects;
-import javax.persistence.Embeddable;
 
 public final class OrderLineItemModel {
 

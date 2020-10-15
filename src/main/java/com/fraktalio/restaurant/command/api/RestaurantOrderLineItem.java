@@ -3,6 +3,7 @@ package com.fraktalio.restaurant.command.api;
 import java.util.Objects;
 
 public class RestaurantOrderLineItem {
+
     private final Integer quantity;
     private final String menuItemId;
     private final String name;
