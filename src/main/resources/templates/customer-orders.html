@@ -1,14 +1,59 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout-customer}">
 <head>
-    <title>My Orders</title>
+    <title>Customer orders</title>
 </head>
 <body>
-<h1>My Orders</h1>
-</body>
+
+<div layout:fragment="content">
+    <section class="my-5">
+
+            <div class="row mt-1">
+                <div class="col-12">
+                    <div class="card">
+                        <h3 class="card-header alert alert-success">Orders</h3>
+                        <table class="table table-striped card-body">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>State</th>
+                                <th>Restaurant Id</th>
+                                <th>Items</th>
+                                <th>Delivery Address</th>
+                            </tr>
+                            </thead>
+                            <tbody id="orderTable">
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const orderTable = document.getElementById("orderTable");
+        const order_source = new EventSource("/customer-orders-sse");
+        order_source.withCredentials = true;
+        order_source.addEventListener("message", function (event) {
+            orderTable.innerHTML = event.data + orderTable.innerHTML;
+
+            //remove the duplicates (naive ;))
+            let arr = $("#orderTable tr");
+            $.each(arr, function (i, item) {
+                let currIndex = $("#orderTable tr").eq(i);
+                let matchText = currIndex.children("td").first().text();
+                $(this).nextAll().each(function (i, inItem) {
+                    if (matchText === $(this).children("td").first().text()) {
+                        $(this).remove();
+                    }
+                });
+            });
+        });
+    </script>
 </div>
 
-</html>

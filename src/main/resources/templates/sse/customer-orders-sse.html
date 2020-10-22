@@ -1,0 +1,39 @@
+    <!DOCTYPE html>
+    <html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Orders - SEE</title>
+</head>
+<body>
+<table id="allOrders" class="table table-striped">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>State</th>
+        <th>Restaurant Id</th>
+        <th>Items</th>
+        <th>Delivery Address</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="result" data-th-each="order : ${orders}">
+        <td>[[${order.id}]]</td>
+        <td>[[${order.orderState}]]</td>
+        <td>[[${order.restaurantId}]]</td>
+        <td>
+            <table id="allLineItems" class="table table-nostriped">
+                <tr class="result" data-th-each="lineItem : ${order.orderLineItems}">
+                    <td>[[${lineItem.menuItemId}]]</td>
+                    <td>[[${lineItem.name}]]</td>
+                    <td>[[${lineItem.quantity}]]</td>
+                    <td>[[${lineItem.price}]]</td>
+                </tr>
+            </table>
+        </td>
+        <td>
+        <td>[[${order.deliveryAddress}]]</td>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
