@@ -1,6 +1,6 @@
 package com.fraktalio.order.web.configuration;
 
-import com.fraktalio.order.command.api.AuditEntry;
+import com.fraktalio.api.AuditEntry;
 import org.axonframework.extensions.reactor.messaging.ReactorMessageDispatchInterceptor;
 import org.axonframework.messaging.Message;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;

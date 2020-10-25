@@ -4,12 +4,15 @@ import java.util.Objects;
 
 public final class RestaurantOrderRejectedEvent {
 
-    private final RestaurantOrderId aggregateIdentifier;
-    private final String reason;
+    private RestaurantOrderId aggregateIdentifier;
+    private String reason;
 
     public RestaurantOrderRejectedEvent(RestaurantOrderId aggregateIdentifier, String reason) {
         this.aggregateIdentifier = aggregateIdentifier;
         this.reason = reason;
+    }
+
+    private RestaurantOrderRejectedEvent() {
     }
 
     public RestaurantOrderId getAggregateIdentifier() {

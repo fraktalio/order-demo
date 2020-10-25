@@ -2,9 +2,12 @@ package com.fraktalio.courier.command.api;
 
 import java.util.Objects;
 
-public class ShipmentDeliveredEvent {
+public final class ShipmentDeliveredEvent {
 
-    private final ShipmentId aggregateIdentifier;
+    private ShipmentId aggregateIdentifier;
+
+    private ShipmentDeliveredEvent() {
+    }
 
     public ShipmentDeliveredEvent(ShipmentId aggregateIdentifier) {
         this.aggregateIdentifier = aggregateIdentifier;

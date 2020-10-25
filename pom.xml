@@ -135,13 +135,6 @@
             <artifactId>postgresql</artifactId>
         </dependency>
 
-        <!-- Lombok -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
-
         <!-- Metrics -->
         <dependency>
             <groupId>io.micrometer</groupId>

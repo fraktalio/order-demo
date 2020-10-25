@@ -1,5 +1,7 @@
 package com.fraktalio.order.command.api;
 
+import com.fraktalio.api.AuditEntry;
+
 public abstract class AbstractOrderEvent {
 
     private final AuditEntry auditEntry;

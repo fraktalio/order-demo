@@ -2,6 +2,8 @@ package com.fraktalio.order.web.api;
 
 import com.fraktalio.order.command.api.OrderLineItem;
 
+import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.List;
 
 public class PlaceOrderRequest {
@@ -18,6 +20,7 @@ public class PlaceOrderRequest {
     }
 
     public PlaceOrderRequest() {
+        orderLineItems = Collections.singletonList(new OrderLineItem("1", "Sarma", BigDecimal.TEN, 1));
     }
 
     public String getRestaurantId() {

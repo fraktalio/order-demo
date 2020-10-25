@@ -1,5 +1,7 @@
 package com.fraktalio.order.command.api;
 
+import com.fraktalio.api.AuditEntry;
+
 import java.util.List;
 import java.util.Objects;
 

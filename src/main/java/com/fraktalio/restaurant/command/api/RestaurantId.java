@@ -18,6 +18,9 @@ public final class RestaurantId {
     public String getIdentifier() {
         return identifier;
     }
+    public String identifier() {
+        return identifier;
+    }
 
     @Override
     public boolean equals(Object o) {

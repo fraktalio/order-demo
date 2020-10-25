@@ -1,9 +1,12 @@
 package com.fraktalio.courier.command.api;
 
+import org.axonframework.modelling.command.TargetAggregateIdentifier;
+
 import java.util.Objects;
 
 public final class CreateShipmentCommand {
 
+    @TargetAggregateIdentifier
     private final ShipmentId targetAggregateIdentifier;
     private final Address address;
 

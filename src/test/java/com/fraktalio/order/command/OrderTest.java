@@ -1,8 +1,7 @@
 package com.fraktalio.order.command;
 
-import com.fraktalio.order.web.configuration.SpringSecurityReactorMessageDispatchInterceptor;
+import com.fraktalio.api.AuditEntry;
 import com.fraktalio.order.command.api.AcceptOrderCommand;
-import com.fraktalio.order.command.api.AuditEntry;
 import com.fraktalio.order.command.api.MarkOrderAsCollectedCommand;
 import com.fraktalio.order.command.api.MarkOrderAsDeliveredCommand;
 import com.fraktalio.order.command.api.MarkOrderAsPayedCommand;
@@ -19,6 +18,7 @@ import com.fraktalio.order.command.api.OrderRejectedEvent;
 import com.fraktalio.order.command.api.PlaceOrderCommand;
 import com.fraktalio.order.command.api.RejectOrderCommand;
 import com.fraktalio.order.command.api.RestaurantId;
+import com.fraktalio.order.web.configuration.SpringSecurityReactorMessageDispatchInterceptor;
 import org.axonframework.test.aggregate.AggregateTestFixture;
 import org.junit.jupiter.api.*;
 

@@ -1,7 +1,7 @@
 package com.fraktalio.order.command;
 
+import com.fraktalio.api.AuditEntry;
 import com.fraktalio.order.command.api.AcceptOrderCommand;
-import com.fraktalio.order.command.api.AuditEntry;
 import com.fraktalio.order.command.api.ExceptionStatusCode;
 import com.fraktalio.order.command.api.MarkOrderAsCollectedCommand;
 import com.fraktalio.order.command.api.MarkOrderAsDeliveredCommand;

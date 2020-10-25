@@ -9,4 +9,8 @@ public class RestaurantOrderDetails {
     public RestaurantOrderDetails(List<RestaurantOrderLineItem> lineItems) {
         this.lineItems = lineItems;
     }
+
+    public List<RestaurantOrderLineItem> getLineItems() {
+        return lineItems;
+    }
 }

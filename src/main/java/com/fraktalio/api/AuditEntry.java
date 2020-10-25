@@ -1,4 +1,4 @@
-package com.fraktalio.order.command.api;
+package com.fraktalio.api;
 
 import java.util.Collection;
 import java.util.Date;

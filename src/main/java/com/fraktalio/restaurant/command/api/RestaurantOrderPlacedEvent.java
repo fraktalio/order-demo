@@ -4,10 +4,13 @@ import java.util.Objects;
 
 public final class RestaurantOrderPlacedEvent {
 
-    private final RestaurantOrderId restaurantOrderId;
+    private RestaurantOrderId restaurantOrderId;
 
     public RestaurantOrderPlacedEvent(RestaurantOrderId restaurantOrderId) {
         this.restaurantOrderId = restaurantOrderId;
+    }
+
+    private RestaurantOrderPlacedEvent() {
     }
 
     public RestaurantOrderId getRestaurantOrderId() {

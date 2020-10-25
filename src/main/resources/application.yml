@@ -32,7 +32,7 @@ axon:
     micrometer:
       dimensional: true
   serializer:
-    general: xstream
+    general: jackson
     messages: xstream
     events: jackson
 

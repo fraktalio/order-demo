@@ -1,6 +1,6 @@
 package com.fraktalio.order.query;
 
-import com.fraktalio.order.command.api.AuditEntry;
+import com.fraktalio.api.AuditEntry;
 import com.fraktalio.order.command.api.OrderAcceptedEvent;
 import com.fraktalio.order.command.api.OrderCollectedEvent;
 import com.fraktalio.order.command.api.OrderDeliveredEvent;

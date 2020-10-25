@@ -4,7 +4,7 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
 import java.util.Objects;
 
-public final class AcceptOrderCommand {
+public class AcceptOrderCommand {
 
     @TargetAggregateIdentifier
     private final OrderId targetAggregateIdentifier;

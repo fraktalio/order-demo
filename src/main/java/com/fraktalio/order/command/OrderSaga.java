@@ -23,8 +23,8 @@ import com.fraktalio.restaurant.command.api.RestaurantOrderLineItem;
 import com.fraktalio.restaurant.command.api.RestaurantOrderPlacedEvent;
 import com.fraktalio.restaurant.command.api.RestaurantOrderPreparedEvent;
 import com.fraktalio.restaurant.command.api.RestaurantOrderRejectedEvent;
-import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.config.ProcessingGroup;
+import org.axonframework.extensions.reactor.commandhandling.gateway.ReactorCommandGateway;
 import org.axonframework.modelling.saga.EndSaga;
 import org.axonframework.modelling.saga.SagaEventHandler;
 import org.axonframework.modelling.saga.SagaLifecycle;
@@ -39,13 +39,28 @@ import javax.persistence.Transient;
 @ProcessingGroup("order-saga")
 public class OrderSaga {
 
+    public OrderSaga() {
+    }
+
     @Autowired
     @Transient
-    private CommandGateway commandGateway;
+    private ReactorCommandGateway commandGateway;
 
     private OrderId orderId;
     private RestaurantOrderId restaurantOrderId;
     private ShipmentId shipmentId;
+
+    public OrderId getOrderId() {
+        return orderId;
+    }
+
+    public RestaurantOrderId getRestaurantOrderId() {
+        return restaurantOrderId;
+    }
+
+    public ShipmentId getShipmentId() {
+        return shipmentId;
+    }
 
     @StartSaga
     @SagaEventHandler(associationProperty = "aggregateIdentifier")
@@ -64,26 +79,26 @@ public class OrderSaga {
                                                                           new RestaurantOrderDetails(
                                                                                   restaurantOrderLineItems),
                                                                           restaurantOrderId);
-        commandGateway.send(placeRestaurantOrderCommand);
+        commandGateway.send(placeRestaurantOrderCommand).subscribe();
     }
 
     @SagaEventHandler(associationProperty = "restaurantOrderId")
     void on(RestaurantOrderPlacedEvent event) {
         var acceptOrderCommand = new AcceptOrderCommand(orderId);
-        commandGateway.send(acceptOrderCommand);
+        commandGateway.send(acceptOrderCommand).subscribe();
     }
 
     @SagaEventHandler(keyName = "restaurantOrderId", associationProperty = "aggregateIdentifier")
     void on(RestaurantOrderPreparedEvent event) {
         var markOrderAsPreparedCommand = new MarkOrderAsPreparedCommand(orderId);
-        commandGateway.send(markOrderAsPreparedCommand);
+        commandGateway.send(markOrderAsPreparedCommand).subscribe();
     }
 
     @EndSaga
     @SagaEventHandler(keyName = "restaurantOrderId", associationProperty = "aggregateIdentifier")
     void on(RestaurantOrderRejectedEvent event) {
         var rejectOrderCommand = new RejectOrderCommand(orderId);
-        commandGateway.send(rejectOrderCommand);
+        commandGateway.send(rejectOrderCommand).subscribe();
     }
 
     @SagaEventHandler(associationProperty = "aggregateIdentifier")
@@ -92,24 +107,25 @@ public class OrderSaga {
         SagaLifecycle.associateWith("shipmentId", shipmentId.toString());
         var createShipmentCommand = new CreateShipmentCommand(shipmentId, new Address(event.getDeliveryAddress(),
                                                                                       event.getDeliveryAddress()));
+        commandGateway.send(createShipmentCommand).subscribe();
     }
 
     @SagaEventHandler(keyName = "shipmentId", associationProperty = "aggregateIdentifier")
     void on(ShipmentAssignedEvent event) {
         var markOrderAsCollectedCommand = new MarkOrderAsCollectedCommand(orderId);
-        commandGateway.send(markOrderAsCollectedCommand);
+        commandGateway.send(markOrderAsCollectedCommand).subscribe();
     }
 
     @SagaEventHandler(keyName = "shipmentId", associationProperty = "aggregateIdentifier")
     void on(ShipmentExpiredEvent event) {
         var markOrderAsExpiredCommand = new MarkOrderAsExpiredCommand(orderId);
-        commandGateway.send(markOrderAsExpiredCommand);
+        commandGateway.send(markOrderAsExpiredCommand).subscribe();
     }
 
     @EndSaga
     @SagaEventHandler(keyName = "shipmentId", associationProperty = "aggregateIdentifier")
     void on(ShipmentDeliveredEvent event) {
         var markOrderAsDeliveredCommand = new MarkOrderAsDeliveredCommand(orderId);
-        commandGateway.send(markOrderAsDeliveredCommand);
+        commandGateway.send(markOrderAsDeliveredCommand).subscribe();
     }
 }

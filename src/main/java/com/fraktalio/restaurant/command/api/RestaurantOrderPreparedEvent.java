@@ -4,10 +4,13 @@ import java.util.Objects;
 
 public final class RestaurantOrderPreparedEvent {
 
-    private final RestaurantOrderId aggregateIdentifier;
+    private RestaurantOrderId aggregateIdentifier;
 
     public RestaurantOrderPreparedEvent(RestaurantOrderId aggregateIdentifier) {
         this.aggregateIdentifier = aggregateIdentifier;
+    }
+
+    private RestaurantOrderPreparedEvent() {
     }
 
     public RestaurantOrderId getAggregateIdentifier() {

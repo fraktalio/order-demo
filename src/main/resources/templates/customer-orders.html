@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout-customer}">
 <head>
@@ -9,6 +10,39 @@
 
 <div layout:fragment="content">
     <section class="my-5">
+        <div class="container">
+
+            <div class="row mt-1">
+                <div class="col-12">
+                    <div class="card">
+                        <h3 class="card-header alert alert-primary">Create Order</h3>
+                        <form class="card-body" th:action="@{/customer-orders}"
+                              th:object="${placeOrderRequest}"
+                              method="post">
+                            <div class="form-group">
+                                <label for="restaurantOptionId">Restaurant</label>
+                                <input class="form-control" id="restaurantOptionId" th:field="*{restaurantId}"/>
+<!--                                Mocking the order :) -->
+                                <table id="allLineItems" class="table table-nostriped">
+                                    <tr class="result" data-th-each="lineItem : ${placeOrderRequest.orderLineItems}">
+                                        <td>[[${lineItem.menuItemId}]]</td>
+                                        <td>[[${lineItem.name}]]</td>
+                                        <td>[[${lineItem.quantity}]]</td>
+                                        <td>[[${lineItem.price}]]</td>
+                                    </tr>
+                                </table>
+
+                                <small th:if="${#fields.hasErrors('restaurantId')}" th:errors="*{restaurantId}"
+                                       class="text-danger">Restaurant Id Error</small>
+                            </div>
+                            <input data-toggle="tooltip" data-placement="top"
+                                   title="Creates the order with default items" type="submit" value="Create"
+                                   class="btn btn-primary"/>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
 
             <div class="row mt-1">
                 <div class="col-12">
