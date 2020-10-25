@@ -7,7 +7,7 @@
     </tr>
     <tr>
         <td><strong>Description:</strong></td>
-        <td colspan="3">Order taking and fulfillment management.</td>
+        <td colspan="3">Order taking and fulfillment management system</td>
     </tr>
     <tr>
         <td><strong>Concepts:</strong></td>
@@ -106,18 +106,18 @@
         <td colspan="1">
             <ul>
                 <li>FindAllMenusQuery (<a href="https://github.com/fraktalio/restaurant-demo" target="_blank">Restaurant system</a>)</li>
-                <li>PlaceRestaurantOrderCommand (Restaurant)</li>
-                <li>CreateShipmentCommand (Courier)</li>
+                <li>PlaceRestaurantOrderCommand (<a href="https://github.com/fraktalio/restaurant-demo" target="_blank">Restaurant system</a>)</li>
+                <li>CreateShipmentCommand (<a href="https://github.com/fraktalio/courier-demo" target="_blank">Courier system</a>)</li>
             </ul>
         </td>
         <td colspan="2">
             <ul>
-               <li>RestaurantOrderRejectedEvent (Restaurant)</li>
-               <li>RestaurantOrderPlacedEvent (Restaurant)</li>
-               <li>RestaurantOrderPreparedEvent (Restaurant)</li>
-               <li>ShipmentCollectedEvent (Courier)</li>
-               <li>ShipmentExpiredEvent (Courier)</li>
-               <li>ShipmentDeliveredEvent (Courier)</li>
+               <li>RestaurantOrderRejectedEvent (<a href="https://github.com/fraktalio/restaurant-demo" target="_blank">Restaurant system</a>)</li>
+               <li>RestaurantOrderPlacedEvent (<a href="https://github.com/fraktalio/restaurant-demo" target="_blank">Restaurant system</a>)</li>
+               <li>RestaurantOrderPreparedEvent (<a href="https://github.com/fraktalio/restaurant-demo" target="_blank">Restaurant system</a>)</li>
+               <li>ShipmentCollectedEvent (<a href="https://github.com/fraktalio/courier-demo" target="_blank">Courier system</a>)</li>
+               <li>ShipmentExpiredEvent (<a href="https://github.com/fraktalio/courier-demo" target="_blank">Courier system</a>)</li>
+               <li>ShipmentDeliveredEvent (<a href="https://github.com/fraktalio/courier-demo" target="_blank">Courier system</a>)</li>
            </ul>
         </td>
     </tr>
@@ -130,6 +130,8 @@
 ![event modeling](.assets/event-model-systems-landscape.jpg)
 
 The systems landscape consists of three systems [order management](https://github.com/fraktalio/order-demo), [restaurant management](https://github.com/fraktalio/restaurant-demo) and [courier management](https://github.com/fraktalio/courier-demo)
+
+Customers use the web application to place food orders at local restaurants. Application(s) coordinates a restaurant/kitchen order preparation and a network of couriers who deliver the orders.
 
 ### **Order Management System**
 ![event modeling](.assets/event-model.jpg)
