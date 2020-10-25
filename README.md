@@ -7,7 +7,7 @@
     </tr>
     <tr>
         <td><strong>Description:</strong></td>
-        <td colspan="3">Managing restaurant menus and other information including location and opening hours. Managing the preparation of orders at a restaurant kitchen. </td>
+        <td colspan="3">Order taking and fulfillment management.</td>
     </tr>
     <tr>
         <td><strong>Concepts:</strong></td>
@@ -105,7 +105,7 @@
     <tr>
         <td colspan="1">
             <ul>
-                <li>FindAllMenusQuery (Restaurant)</li>
+                <li>FindAllMenusQuery (<a href="https://github.com/fraktalio/restaurant-demo" target="_blank">Restaurant system</a>)</li>
                 <li>PlaceRestaurantOrderCommand (Restaurant)</li>
                 <li>CreateShipmentCommand (Courier)</li>
             </ul>
