@@ -1,5 +1,20 @@
 # Order - demo
 
+### Systems Landscape
+[Event Modeling](https://eventmodeling.org/) is a method of describing systems using an example of how information has changed within them over time.
+![event modeling](.assets/event-model-systems-landscape.jpg)
+
+The systems landscape consists of three systems [order management](https://github.com/fraktalio/order-demo), [restaurant management](https://github.com/fraktalio/restaurant-demo) and [courier management](https://github.com/fraktalio/courier-demo)
+
+Customers use the web application to place food orders at local restaurants. Application(s) coordinates a restaurant/kitchen order preparation and a network of couriers who deliver the orders.
+
+### **Order Management System**
+![event modeling](.assets/event-model.jpg)
+
+Specification by example (SBE) is a collaborative approach to defining requirements and business-oriented functional tests for software products based on capturing and illustrating requirements using realistic examples instead of abstract statements.
+
+![spec by example](.assets/spec-by-example.jpg)
+
 <table>
     <tr>
         <td><strong>Name:</strong></td>
@@ -125,21 +140,6 @@
 
 
 
-### Systems Landscape
-[Event Modeling](https://eventmodeling.org/) is a method of describing systems using an example of how information has changed within them over time.
-![event modeling](.assets/event-model-systems-landscape.jpg)
-
-The systems landscape consists of three systems [order management](https://github.com/fraktalio/order-demo), [restaurant management](https://github.com/fraktalio/restaurant-demo) and [courier management](https://github.com/fraktalio/courier-demo)
-
-Customers use the web application to place food orders at local restaurants. Application(s) coordinates a restaurant/kitchen order preparation and a network of couriers who deliver the orders.
-
-### **Order Management System**
-![event modeling](.assets/event-model.jpg)
-
-![spec by example](.assets/spec-by-example.jpg)
-
-
-
 ## Development
 
 This project is driven using [maven].
@@ -162,10 +162,7 @@ This project is driven using [maven].
 ```bash
 ./mvnw clean verify
 ```
-to additionally run integration [testcontainers] tests (docker required):
-```bash
-./mvnw clean verify -DskipIntegrationTests=false
-```
+
 **Run**
 
 ```bash
