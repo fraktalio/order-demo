@@ -41,7 +41,8 @@ class OrderHandler {
                                                                                                     oli.getPrice(),
                                                                                                     oli.getQuantity()))
                                     .collect(Collectors.toList()),
-                              entity.getDeliveryAddress());
+                              entity.getDeliveryAddress(),
+                              entity.getOrderState());
     }
 
 

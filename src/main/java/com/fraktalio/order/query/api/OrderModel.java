@@ -11,12 +11,12 @@ public class OrderModel {
     private final OrderStatus orderState;
 
     public OrderModel(String id, String restaurantId,
-                      List<OrderLineItemModel> orderLineItems, String deliveryAddress) {
+                      List<OrderLineItemModel> orderLineItems, String deliveryAddress, OrderStatus orderState) {
         this.id = id;
         this.restaurantId = restaurantId;
         this.orderLineItems = orderLineItems;
         this.deliveryAddress = deliveryAddress;
-        this.orderState = OrderStatus.PLACED;
+        this.orderState = orderState;
     }
 
     public String getId() {
