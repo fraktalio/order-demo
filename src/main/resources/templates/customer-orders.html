@@ -27,6 +27,30 @@
             <div class="row mt-1">
                 <div class="col-12">
                     <div class="card">
+                        <h3 class="card-header alert alert-success">Menus</h3>
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Menu Version</th>
+                                <th>Restaurant Id</th>
+                                <th>Menu Items</th>
+                                <th>Active</th>
+                            </tr>
+                            </thead>
+                            <tbody id="menuTable">
+
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row mt-1">
+                <div class="col-12">
+                    <div class="card">
                         <h3 class="card-header alert alert-primary">Create Order</h3>
                         <form class="card-body" th:action="@{/customer-orders}"
                               th:object="${placeOrderRequest}"
@@ -100,6 +124,29 @@
                 });
             });
         });
+
+
+        const menuTable = document.getElementById("menuTable");
+
+        const restaurants_source = new EventSource("/menus-sse");
+        restaurants_source.withCredentials = true;
+        restaurants_source.addEventListener("message", function (event) {
+            menuTable.innerHTML = event.data + menuTable.innerHTML;
+
+            //remove the duplicates (naive ;))
+            let arr = $("#menuTable tr");
+            $.each(arr, function (i, item) {
+                let currIndex = $("#menuTable tr").eq(i);
+                let matchText = currIndex.children("td").first().text();
+                $(this).nextAll().each(function (i, inItem) {
+                    if (matchText === $(this).children("td").first().text()) {
+                        $(this).remove();
+                    }
+                });
+            });
+        });
+
+
     </script>
 </div>
 

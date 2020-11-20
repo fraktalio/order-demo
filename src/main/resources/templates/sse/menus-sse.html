@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Menus - SEE</title>
+</head>
+<body>
+<table id="allMenus" class="table table-striped">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Menu Version</th>
+        <th>Restaurant Id</th>
+        <th>Menu Items</th>
+        <th>Active</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="result" data-th-each="menu : ${menus}">
+        <td>[[${menu.id}]]</td>
+        <td>[[${menu.menuVersion}]]</td>
+        <td>[[${menu.restaurantId}]]</td>
+        <td>
+            <table id="allMenuItems" class="table table-nostriped">
+                <tr class="result" data-th-each="menuItem : ${menu.menuItems}">
+                    <td>[[${menuItem.menuId}]]</td>
+                    <td>[[${menuItem.name}]]</td>
+                    <td>[[${menuItem.price}]]</td>
+                </tr>
+            </table>
+        </td>
+        <td>[[${menu.active}]]</td>
+    </tr>
+    </tbody>
+</table>
+</body>

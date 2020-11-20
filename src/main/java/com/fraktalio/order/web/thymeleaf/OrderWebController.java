@@ -6,6 +6,8 @@ import com.fraktalio.order.command.api.RestaurantId;
 import com.fraktalio.order.query.api.FindAllOrdersByUserIdQuery;
 import com.fraktalio.order.query.api.OrderModel;
 import com.fraktalio.order.web.api.PlaceOrderRequest;
+import com.fraktalio.restaurant.query.api.FindAllMenusQuery;
+import com.fraktalio.restaurant.query.api.MenuModel;
 import org.axonframework.extensions.reactor.commandhandling.gateway.ReactorCommandGateway;
 import org.axonframework.extensions.reactor.queryhandling.gateway.ReactorQueryGateway;
 import org.springframework.http.MediaType;
@@ -45,6 +47,15 @@ public class OrderWebController {
                 reactorQueryGateway.subscriptionQueryMany(new FindAllOrdersByUserIdQuery(user.getUsername()), OrderModel.class);
         model.addAttribute("orders", new ReactiveDataDriverContextVariable(result, 1));
         return Mono.just("sse/customer-orders-sse");
+    }
+
+    @PreAuthorize("hasRole('CUSTOMER')")
+    @GetMapping(value = "/menus-sse", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    Mono<String> restaurantsSSE(Model model) {
+        Flux<MenuModel> result =
+        reactorQueryGateway.subscriptionQueryMany(new FindAllMenusQuery(), MenuModel.class);
+        model.addAttribute("menus", new ReactiveDataDriverContextVariable(result, 1));
+        return Mono.just("sse/menus-sse");
     }
 
     @PreAuthorize("hasRole('CUSTOMER')")
