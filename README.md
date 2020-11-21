@@ -8,6 +8,8 @@ The systems landscape consists of three systems [order management](https://githu
 
 Customers use the web application to place food orders at local restaurants. Application(s) coordinates a restaurant/kitchen order preparation and a network of couriers who deliver the orders.
 
+![landscape](.assets/landscapeViews.png)
+
 ### **Order Management System**
 ![event modeling](.assets/event-model.jpg)
 
