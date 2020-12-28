@@ -193,4 +193,12 @@
         </plugins>
     </build>
 
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Fraktalio Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/fraktalio/order-demo</url>
+        </repository>
+    </distributionManagement>
+
 </project>
