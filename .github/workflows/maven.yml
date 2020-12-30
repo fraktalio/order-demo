@@ -39,5 +39,5 @@ jobs:
           mvn --batch-mode jib:build -DskipTests \
               -Djib.to.image=$CONTAINER_IMAGE \
               -Djib.to.version=latest \
-              -Djib.to.auth.username=fraktalio \
+              -Djib.to.auth.username=${{ github.actor }} \
               -Djib.to.auth.password=${{ secrets.GITHUB_TOKEN }}
