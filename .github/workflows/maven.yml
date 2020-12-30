@@ -34,7 +34,7 @@ jobs:
 
       - name: Build and Publish container image by Maven (Jib)
         env:
-          CONTAINER_IMAGE: https://docker.pkg.github.com/fraktalio/order-demo/order
+          CONTAINER_IMAGE: docker.pkg.github.com/fraktalio/order-demo/order
         run: |
           mvn --batch-mode jib:build -DskipTests \
               -Djib.to.image=$CONTAINER_IMAGE \
