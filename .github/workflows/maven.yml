@@ -14,17 +14,30 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
       - name: Set up JDK 11
         uses: actions/setup-java@v1
         with:
           java-version: 11
+
       - name: Cache Maven packages
         uses: actions/cache@v2
         with:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
-      - name: Build and Deploy with Maven
+
+      - name: Test, Build and Deploy with Maven
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: ./mvnw --batch-mode deploy
+
+      - name: Build and Publish container image by Maven (Jib)
+        env:
+          CONTAINER_IMAGE: docker.pkg.github.com/fraktalio/order-demo/order
+        run: |
+          mvn --batch-mode jib:build -DskipTests \
+              -Djib.to.image=$CONTAINER_IMAGE \
+              -Djib.to.version=latest \
+              -Djib.to.auth.username=idugalic \
+              -Djib.to.auth.password=${{ secrets.GITHUB_TOKEN }}
