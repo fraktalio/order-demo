@@ -1,16 +1,11 @@
-# This workflow will build a Java project with Maven
-# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
-
-name: CI with Maven
-
+name: CI with Maven - Test, Build and Publish
+# Trigger the workflow on push,
+# but only for the main branch
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
 jobs:
-  build:
+  build-and-publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -30,13 +25,13 @@ jobs:
       - name: Test, Build and Deploy with Maven
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: ./mvnw --batch-mode deploy
+        run: ./mvnw --batch-mode clean deploy
 
       - name: Build and Publish container image by Maven (Jib)
         env:
           CONTAINER_IMAGE: docker.pkg.github.com/fraktalio/order-demo/order
         run: |
-          mvn --batch-mode jib:build -DskipTests \
+          ./mvnw --batch-mode jib:build -DskipTests \
               -Djib.to.image=$CONTAINER_IMAGE \
               -Djib.to.version=latest \
               -Djib.to.auth.username=${{ github.actor }} \
