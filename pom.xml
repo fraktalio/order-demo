@@ -16,7 +16,8 @@
 
     <properties>
         <java.version>11</java.version>
-        <axon.version>4.4.2</axon.version>
+        <axon.version>4.4.5</axon.version>
+        <axon-reactor.version>4.4.2</axon-reactor.version>
         <testcontainers.version>1.15.1</testcontainers.version>
         <skipIntegrationTests>true</skipIntegrationTests>
     </properties>
@@ -36,7 +37,7 @@
         <dependency>
             <groupId>org.axonframework.extensions.reactor</groupId>
             <artifactId>axon-reactor-spring-boot-starter</artifactId>
-            <version>${axon.version}</version>
+            <version>${axon-reactor.version}</version>
         </dependency>
         <dependency>
             <groupId>org.axonframework</groupId>
