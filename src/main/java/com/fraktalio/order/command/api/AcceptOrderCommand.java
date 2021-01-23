@@ -7,10 +7,13 @@ import java.util.Objects;
 public class AcceptOrderCommand {
 
     @TargetAggregateIdentifier
-    private final OrderId targetAggregateIdentifier;
+    private OrderId targetAggregateIdentifier;
 
     public AcceptOrderCommand(OrderId targetAggregateIdentifier) {
         this.targetAggregateIdentifier = targetAggregateIdentifier;
+    }
+
+    private AcceptOrderCommand() {
     }
 
     public OrderId getTargetAggregateIdentifier() {

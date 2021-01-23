@@ -7,11 +7,14 @@ import java.util.Objects;
 public final class RejectOrderCommand {
 
     @TargetAggregateIdentifier
-    private final OrderId targetAggregateIdentifier;
+    private OrderId targetAggregateIdentifier;
 
 
     public RejectOrderCommand(OrderId targetAggregateIdentifier) {
         this.targetAggregateIdentifier = targetAggregateIdentifier;
+    }
+
+    private RejectOrderCommand() {
     }
 
     public OrderId getTargetAggregateIdentifier() {

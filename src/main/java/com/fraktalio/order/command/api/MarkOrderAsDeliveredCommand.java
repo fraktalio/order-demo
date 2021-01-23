@@ -7,10 +7,13 @@ import java.util.Objects;
 public final class MarkOrderAsDeliveredCommand {
 
     @TargetAggregateIdentifier
-    private final OrderId targetAggregateIdentifier;
+    private OrderId targetAggregateIdentifier;
 
     public MarkOrderAsDeliveredCommand(OrderId targetAggregateIdentifier) {
         this.targetAggregateIdentifier = targetAggregateIdentifier;
+    }
+
+    private MarkOrderAsDeliveredCommand() {
     }
 
     public OrderId getTargetAggregateIdentifier() {

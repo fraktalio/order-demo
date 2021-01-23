@@ -2,12 +2,15 @@ package com.fraktalio.order.query.api;
 
 import java.util.Objects;
 
-public final class FindAllOrdersByUserIdQuery {
+public class FindAllOrdersByUserIdQuery {
 
-    private final String userId;
+    private String userId;
 
     public FindAllOrdersByUserIdQuery(String userId) {
         this.userId = userId;
+    }
+
+    public FindAllOrdersByUserIdQuery() {
     }
 
     public String getUserId() {

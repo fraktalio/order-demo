@@ -7,11 +7,14 @@ import java.util.Objects;
 public final class MarkOrderAsExpiredCommand {
 
     @TargetAggregateIdentifier
-    private final OrderId targetAggregateIdentifier;
+    private OrderId targetAggregateIdentifier;
 
 
     public MarkOrderAsExpiredCommand(OrderId targetAggregateIdentifier) {
         this.targetAggregateIdentifier = targetAggregateIdentifier;
+    }
+
+    private MarkOrderAsExpiredCommand() {
     }
 
     public OrderId getTargetAggregateIdentifier() {

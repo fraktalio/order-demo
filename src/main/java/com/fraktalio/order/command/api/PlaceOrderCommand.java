@@ -8,10 +8,10 @@ import java.util.Objects;
 public final class PlaceOrderCommand {
 
     @TargetAggregateIdentifier
-    private final OrderId targetAggregateIdentifier;
-    private final RestaurantId restaurantId;
-    private final List<OrderLineItem> orderLineItems;
-    private final String deliveryAddress;
+    private OrderId targetAggregateIdentifier;
+    private RestaurantId restaurantId;
+    private List<OrderLineItem> orderLineItems;
+    private String deliveryAddress;
 
 
     public PlaceOrderCommand(OrderId targetAggregateIdentifier, RestaurantId restaurantId,
@@ -20,6 +20,9 @@ public final class PlaceOrderCommand {
         this.restaurantId = restaurantId;
         this.orderLineItems = orderLineItems;
         this.deliveryAddress = deliveryAddress;
+    }
+
+    private PlaceOrderCommand() {
     }
 
     public OrderId getTargetAggregateIdentifier() {
