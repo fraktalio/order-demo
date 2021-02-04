@@ -7,7 +7,7 @@ data:
   SPRING_DATASOURCE_PASSWORD: thepassword
   SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.PostgreSQLDialect
   SPRING_JPA_PROPERTIES_HIBERNATE_JDBC_LOB_NON-CONTEXTUAL-CREATION: "true"
-  SPRING_JPA_HIBERNATE_DDL-AUTO: "create-drop"
+  SPRING_JPA_HIBERNATE_DDL-AUTO: "validate"
 kind: ConfigMap
 metadata:
   name: order
