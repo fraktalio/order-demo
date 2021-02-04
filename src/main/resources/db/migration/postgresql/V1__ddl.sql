@@ -1,6 +1,5 @@
 create sequence hibernate_sequence;
 
-
 create table if not exists association_value_entry
 (
 	id bigint not null
@@ -19,6 +18,30 @@ create index if not exists idxk45eqnxkgd8hpdn6xixn8sgft
 create index if not exists idxgv5k1v2mh6frxuy5c0hgbau94
 	on association_value_entry (saga_id, saga_type);
 
+create table if not exists order_entity
+(
+	id varchar(255) not null
+		constraint order_entity_pkey
+			primary key,
+	delivery_address varchar(255),
+	order_state varchar(255),
+	restaurant_id varchar(255),
+	user_id varchar(255)
+);
+
+
+create table if not exists order_entity_order_line_items
+(
+	order_entity_id varchar(255) not null
+		constraint fkgaj6h7w5xqbrdp8ny5qwv27i9
+			references order_entity,
+	menu_item_id varchar(255),
+	name varchar(255),
+	price numeric(19,2),
+	quantity integer
+);
+
+
 create table if not exists saga_entry
 (
 	saga_id varchar(255) not null
@@ -28,6 +51,7 @@ create table if not exists saga_entry
 	saga_type varchar(255),
 	serialized_saga oid
 );
+
 
 create table if not exists token_entry
 (
@@ -40,6 +64,3 @@ create table if not exists token_entry
 	constraint token_entry_pkey
 		primary key (processor_name, segment)
 );
-
-
-

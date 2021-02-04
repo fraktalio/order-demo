@@ -181,10 +181,27 @@ This project is driven using [maven].
 **Requirements**
 
 >- [Kubernetes](https://kubernetes.io/). It is included in the Docker on Mac (and Windows) binary so it installed automatically with it. After a successful installation, you need to explicitly enable Kubernetes support. Click the Docker icon in the status bar, go to “Preferences”, and on the “Kubernetes” tab check “Enable Kubernetes”.
->- [Skaffold](https://github.com/GoogleContainerTools/skaffold) is a command line tool that facilitates continuous development for Kubernetes applications.
 >- [Kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) allows you to run commands against Kubernetes clusters. You can use kubectl to deploy applications, inspect and manage cluster resources, and view logs
 
-**Continuously deploy**
+Build the docker image to local registry:
+```
+./mvnw clean verify jib:dockerBuild
+```
+
+Deploy:
+```
+kubectl apply -k .k8s/base
+```
+
+Delete:
+```
+kubectl delete -k .k8s/base
+kubectl delete pvc --all
+```
+
+**Continuously deploy with google skaffold**
+
+>- [Skaffold](https://github.com/GoogleContainerTools/skaffold) is a command line tool that facilitates continuous development for Kubernetes applications.
 
 Use `skaffold dev` to build and deploy your app every time your code changes:
 ```bash
