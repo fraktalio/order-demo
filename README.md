@@ -256,6 +256,8 @@ $ skaffold run -p observability
 - [https://miro.com/app/board/o9J_kqtuB6A=/](https://miro.com/app/board/o9J_kqtuB6A=/)
 - [https://eventmodeling.org/](https://eventmodeling.org/)
 - [https://docs.axoniq.io/reference-guide/](https://docs.axoniq.io/reference-guide/)
+- [https://structurizr.com/](https://structurizr.com/)
+- [https://github.com/archifacts/archifacts](https://github.com/archifacts/archifacts)
    
 ---
 Created with :heart: by [Fraktalio](https://fraktalio.com/)
