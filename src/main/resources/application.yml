@@ -19,6 +19,7 @@ spring:
         dialect: org.hibernate.dialect.H2Dialect
     open-in-view: true
   main:
+    allow-circular-references: true
     allow-bean-definition-overriding: true
   application:
     name: order-demo
