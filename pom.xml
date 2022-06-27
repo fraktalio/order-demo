@@ -16,7 +16,7 @@
 
     <properties>
         <java.version>11</java.version>
-        <axon.version>4.5.12</axon.version>
+        <axon.version>4.5.14</axon.version>
         <testcontainers.version>1.17.1</testcontainers.version>
         <skipIntegrationTests>true</skipIntegrationTests>
     </properties>
