@@ -72,7 +72,6 @@ CREATE TABLE IF NOT EXISTS dead_letter_entry
     cause_type character varying(255),
     diagnostics oid,
     enqueued_at timestamp without time zone NOT NULL,
-    index bigint NOT NULL,
     last_touched timestamp without time zone,
     aggregate_identifier character varying(255),
     event_identifier character varying(255) NOT NULL,
@@ -89,20 +88,20 @@ CREATE TABLE IF NOT EXISTS dead_letter_entry
     processing_group character varying(255) NOT NULL,
     processing_started timestamp without time zone,
     sequence_identifier character varying(255) NOT NULL,
+    sequence_index bigint NOT NULL,
     CONSTRAINT dead_letter_entry_pkey PRIMARY KEY (dead_letter_id),
-    CONSTRAINT uk5o90gyvtpsxm46giirskcl486 UNIQUE (processing_group, sequence_identifier, index)
+    CONSTRAINT ukhlr8io86j74qy298xf720n16v UNIQUE (processing_group, sequence_identifier, sequence_index)
 );
-
 
 CREATE INDEX IF NOT EXISTS idxe67wcx5fiq9hl4y4qkhlcj9cg
     ON dead_letter_entry USING btree
-        (processing_group ASC NULLS LAST);
-
+        (processing_group ASC NULLS LAST)
+    TABLESPACE pg_default;
 
 CREATE INDEX IF NOT EXISTS idxrwucpgs6sn93ldgoeh2q9k6bn
     ON dead_letter_entry USING btree
-        (processing_group ASC NULLS LAST, sequence_identifier ASC NULLS LAST);
-
+        (processing_group ASC NULLS LAST, sequence_identifier ASC NULLS LAST)
+    TABLESPACE pg_default;
 
 CREATE TABLE IF NOT EXISTS domain_event_entry
 (
