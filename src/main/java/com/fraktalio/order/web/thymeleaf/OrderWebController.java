@@ -8,6 +8,7 @@ import com.fraktalio.order.query.api.OrderModel;
 import com.fraktalio.order.web.api.PlaceOrderRequest;
 import com.fraktalio.restaurant.query.api.FindAllMenusQuery;
 import com.fraktalio.restaurant.query.api.MenuModel;
+import jakarta.validation.Valid;
 import org.axonframework.extensions.reactor.commandhandling.gateway.ReactorCommandGateway;
 import org.axonframework.extensions.reactor.queryhandling.gateway.ReactorQueryGateway;
 import org.springframework.http.MediaType;
@@ -21,11 +22,10 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.thymeleaf.spring5.context.webflux.ReactiveDataDriverContextVariable;
+import org.thymeleaf.spring6.context.webflux.ReactiveDataDriverContextVariable;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import javax.validation.Valid;
 
 @Controller
 public class OrderWebController {
@@ -42,7 +42,7 @@ public class OrderWebController {
 
     @PreAuthorize("hasRole('CUSTOMER')")
     @GetMapping(value = "/customer-orders-sse", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    Mono<String> ordersSSE(Model model,  @AuthenticationPrincipal UserDetails user) {
+    Mono<String> ordersSSE(Model model, @AuthenticationPrincipal UserDetails user) {
         Flux<OrderModel> result =
                 reactorQueryGateway.subscriptionQueryMany(new FindAllOrdersByUserIdQuery(user.getUsername()), OrderModel.class);
         model.addAttribute("orders", new ReactiveDataDriverContextVariable(result, 1));
@@ -53,7 +53,7 @@ public class OrderWebController {
     @GetMapping(value = "/menus-sse", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     Mono<String> restaurantsSSE(Model model) {
         Flux<MenuModel> result =
-        reactorQueryGateway.subscriptionQueryMany(new FindAllMenusQuery(), MenuModel.class);
+                reactorQueryGateway.subscriptionQueryMany(new FindAllMenusQuery(), MenuModel.class);
         model.addAttribute("menus", new ReactiveDataDriverContextVariable(result, 1));
         return Mono.just("sse/menus-sse");
     }
@@ -73,9 +73,9 @@ public class OrderWebController {
     ) {
 
         var command = new PlaceOrderCommand(new OrderId(),
-                                            new RestaurantId(placeOrderRequest.getRestaurantId()),
-                                            placeOrderRequest.getOrderLineItems(),
-                                            placeOrderRequest.getDeliveryAddress());
+                new RestaurantId(placeOrderRequest.getRestaurantId()),
+                placeOrderRequest.getOrderLineItems(),
+                placeOrderRequest.getDeliveryAddress());
         Mono<OrderId> result = reactorCommandGateway.send(command);
 
         return Mono

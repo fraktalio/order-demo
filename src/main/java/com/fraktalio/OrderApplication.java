@@ -19,7 +19,7 @@ public class OrderApplication {
     @Autowired
     public void configureObjectMapper(ObjectMapper mapper) {
         mapper.activateDefaultTyping(mapper.getPolymorphicTypeValidator(),
-                                     ObjectMapper.DefaultTyping.OBJECT_AND_NON_CONCRETE);
+                ObjectMapper.DefaultTyping.OBJECT_AND_NON_CONCRETE);
         mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
     }
 }

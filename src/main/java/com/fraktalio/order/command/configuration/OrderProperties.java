@@ -2,10 +2,8 @@ package com.fraktalio.order.command.configuration;
 
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.ConstructorBinding;
 
 @ConfigurationProperties(prefix = "order")
-@ConstructorBinding
 public class OrderProperties {
 
     public OrderProperties(Integer snapshotTriggerThresholdOrder) {

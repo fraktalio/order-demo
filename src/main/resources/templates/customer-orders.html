@@ -58,7 +58,7 @@
                             <div class="form-group">
                                 <label for="restaurantOptionId">Restaurant</label>
                                 <input class="form-control" id="restaurantOptionId" th:field="*{restaurantId}"/>
-<!--                                Mocking the order :) -->
+                                <!--                                Mocking the order :) -->
                                 <table id="allLineItems" class="table table-nostriped">
                                     <tr class="result" data-th-each="lineItem : ${placeOrderRequest.orderLineItems}">
                                         <td>[[${lineItem.menuItemId}]]</td>

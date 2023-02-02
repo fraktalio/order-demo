@@ -36,6 +36,7 @@ class OrderWebConfiguration {
     When a command fails due to an exception that is explicitly non-transient, no retries are done at all.
     Note that the retry scheduler is only invoked when a command fails due to a RuntimeException.
     Checked exceptions are regarded as a "business exception" and will never trigger a retry. */
+
     /***************************************************/
     @Bean
     public ReactorCommandGateway reactiveCommandGateway(CommandBus commandBus) {
@@ -48,9 +49,9 @@ class OrderWebConfiguration {
                 .build();
 
         return DefaultReactorCommandGateway.builder()
-                                           .commandBus(commandBus)
-                                           .retryScheduler(retryScheduler)
-                                           .build();
+                .commandBus(commandBus)
+                .retryScheduler(retryScheduler)
+                .build();
     }
 
     //TODO configure retry scheduler for query gateways: https://github.com/AxonFramework/AxonFramework/issues/1692

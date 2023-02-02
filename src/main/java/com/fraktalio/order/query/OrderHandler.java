@@ -1,18 +1,8 @@
 package com.fraktalio.order.query;
 
 import com.fraktalio.api.AuditEntry;
-import com.fraktalio.order.command.api.OrderAcceptedEvent;
-import com.fraktalio.order.command.api.OrderCollectedEvent;
-import com.fraktalio.order.command.api.OrderDeliveredEvent;
-import com.fraktalio.order.command.api.OrderExpiredEvent;
-import com.fraktalio.order.command.api.OrderPayedEvent;
-import com.fraktalio.order.command.api.OrderPlacedEvent;
-import com.fraktalio.order.command.api.OrderPreparedEvent;
-import com.fraktalio.order.query.api.FindAllOrdersByUserIdQuery;
-import com.fraktalio.order.query.api.FindAllOrdersQuery;
-import com.fraktalio.order.query.api.OrderLineItemModel;
-import com.fraktalio.order.query.api.OrderModel;
-import com.fraktalio.order.query.api.OrderStatus;
+import com.fraktalio.order.command.api.*;
+import com.fraktalio.order.query.api.*;
 import org.axonframework.config.ProcessingGroup;
 import org.axonframework.eventhandling.EventHandler;
 import org.axonframework.messaging.annotation.MetaDataValue;
@@ -35,14 +25,14 @@ class OrderHandler {
 
     private OrderModel convert(OrderEntity entity) {
         return new OrderModel(entity.getId(),
-                              entity.getRestaurantId(),
-                              entity.getOrderLineItems().stream().map(oli -> new OrderLineItemModel(oli.getMenuItemId(),
-                                                                                                    oli.getName(),
-                                                                                                    oli.getPrice(),
-                                                                                                    oli.getQuantity()))
-                                    .collect(Collectors.toList()),
-                              entity.getDeliveryAddress(),
-                              entity.getOrderState());
+                entity.getRestaurantId(),
+                entity.getOrderLineItems().stream().map(oli -> new OrderLineItemModel(oli.getMenuItemId(),
+                                oli.getName(),
+                                oli.getPrice(),
+                                oli.getQuantity()))
+                        .collect(Collectors.toList()),
+                entity.getDeliveryAddress(),
+                entity.getOrderState());
     }
 
 
@@ -54,15 +44,15 @@ class OrderHandler {
     @EventHandler
     void on(OrderPlacedEvent event) {
         var record = orderRepository.save(new OrderEntity(event.getAggregateIdentifier().getIdentifier(),
-                                                          event.getRestaurantId().getIdentifier(),
-                                                          event.getOrderLineItems().stream()
-                                                               .map(oli -> new OrderLineItemEntity(oli.getMenuItemId(),
-                                                                                                   oli.getName(),
-                                                                                                   oli.getPrice(),
-                                                                                                   oli.getQuantity()))
-                                                               .collect(Collectors.toList()),
-                                                          event.getDeliveryAddress(),
-                                                          event.getUserId()));
+                event.getRestaurantId().getIdentifier(),
+                event.getOrderLineItems().stream()
+                        .map(oli -> new OrderLineItemEntity(oli.getMenuItemId(),
+                                oli.getName(),
+                                oli.getPrice(),
+                                oli.getQuantity()))
+                        .collect(Collectors.toList()),
+                event.getDeliveryAddress(),
+                event.getUserId()));
 
         queryUpdateEmitter.emit(
                 FindAllOrdersQuery.class,
@@ -78,8 +68,8 @@ class OrderHandler {
     @EventHandler
     void on(OrderAcceptedEvent event) {
         var record = orderRepository.findById(event.getAggregateIdentifier().getIdentifier())
-                                    .orElseThrow(() -> new UnsupportedOperationException(
-                                            "Order with id '" + event.getAggregateIdentifier() + "' not found"));
+                .orElseThrow(() -> new UnsupportedOperationException(
+                        "Order with id '" + event.getAggregateIdentifier() + "' not found"));
 
         record.setOrderState(OrderStatus.ACCEPTED);
         orderRepository.save(record);
@@ -98,8 +88,8 @@ class OrderHandler {
     @EventHandler
     void on(OrderPreparedEvent event) {
         var record = orderRepository.findById(event.getAggregateIdentifier().getIdentifier())
-                                    .orElseThrow(() -> new UnsupportedOperationException(
-                                            "Order with id '" + event.getAggregateIdentifier() + "' not found"));
+                .orElseThrow(() -> new UnsupportedOperationException(
+                        "Order with id '" + event.getAggregateIdentifier() + "' not found"));
 
         record.setOrderState(OrderStatus.PREPARED);
         orderRepository.save(record);
@@ -118,8 +108,8 @@ class OrderHandler {
     @EventHandler
     void on(OrderCollectedEvent event) {
         var record = orderRepository.findById(event.getAggregateIdentifier().getIdentifier())
-                                    .orElseThrow(() -> new UnsupportedOperationException(
-                                            "Order with id '" + event.getAggregateIdentifier() + "' not found"));
+                .orElseThrow(() -> new UnsupportedOperationException(
+                        "Order with id '" + event.getAggregateIdentifier() + "' not found"));
 
         record.setOrderState(OrderStatus.PREPARED);
         orderRepository.save(record);
@@ -138,8 +128,8 @@ class OrderHandler {
     @EventHandler
     void on(OrderExpiredEvent event) {
         var record = orderRepository.findById(event.getAggregateIdentifier().getIdentifier())
-                                    .orElseThrow(() -> new UnsupportedOperationException(
-                                            "Order with id '" + event.getAggregateIdentifier() + "' not found"));
+                .orElseThrow(() -> new UnsupportedOperationException(
+                        "Order with id '" + event.getAggregateIdentifier() + "' not found"));
 
         record.setOrderState(OrderStatus.EXPIRED);
         orderRepository.save(record);
@@ -158,8 +148,8 @@ class OrderHandler {
     @EventHandler
     void on(OrderDeliveredEvent event) {
         var record = orderRepository.findById(event.getAggregateIdentifier().getIdentifier())
-                                    .orElseThrow(() -> new UnsupportedOperationException(
-                                            "Order with id '" + event.getAggregateIdentifier() + "' not found"));
+                .orElseThrow(() -> new UnsupportedOperationException(
+                        "Order with id '" + event.getAggregateIdentifier() + "' not found"));
 
         record.setOrderState(OrderStatus.DELIVERED);
         orderRepository.save(record);
@@ -178,8 +168,8 @@ class OrderHandler {
     @EventHandler
     void on(OrderPayedEvent event) {
         var record = orderRepository.findById(event.getAggregateIdentifier().getIdentifier())
-                                    .orElseThrow(() -> new UnsupportedOperationException(
-                                            "Order with id '" + event.getAggregateIdentifier() + "' not found"));
+                .orElseThrow(() -> new UnsupportedOperationException(
+                        "Order with id '" + event.getAggregateIdentifier() + "' not found"));
 
         record.setOrderState(OrderStatus.PAYED);
         orderRepository.save(record);
@@ -198,14 +188,14 @@ class OrderHandler {
     @QueryHandler
     List<OrderModel> on(FindAllOrdersQuery query, @MetaDataValue(value = "auditEntry") AuditEntry auditEntry) {
         return orderRepository.findAll().stream()
-                              .map(this::convert)
-                              .collect(Collectors.toList());
+                .map(this::convert)
+                .collect(Collectors.toList());
     }
 
     @QueryHandler
     List<OrderModel> on(FindAllOrdersByUserIdQuery query, @MetaDataValue(value = "auditEntry") AuditEntry auditEntry) {
         return orderRepository.findAllByUserId(query.getUserId()).stream()
-                              .map(this::convert)
-                              .collect(Collectors.toList());
+                .map(this::convert)
+                .collect(Collectors.toList());
     }
 }

@@ -15,15 +15,15 @@ class OrderSecurityConfiguration {
     MapReactiveUserDetailsService authentication() {
         //This is NOT intended for production use (it is intended for getting started experience only)
         var user = User.withDefaultPasswordEncoder()
-                       .username("customer")
-                       .password("pass")
-                       .roles("CUSTOMER")
-                       .build();
+                .username("customer")
+                .password("pass")
+                .roles("CUSTOMER")
+                .build();
         var manager = User.withDefaultPasswordEncoder()
-                          .username("manager")
-                          .password("pass")
-                          .roles("MANAGER")
-                          .build();
+                .username("manager")
+                .password("pass")
+                .roles("MANAGER")
+                .build();
         return new MapReactiveUserDetailsService(user, manager);
     }
 }

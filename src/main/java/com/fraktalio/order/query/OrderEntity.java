@@ -1,13 +1,9 @@
 package com.fraktalio.order.query;
 
 import com.fraktalio.order.query.api.OrderStatus;
+import jakarta.persistence.*;
 
 import java.util.List;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
 
 @Entity
 class OrderEntity {

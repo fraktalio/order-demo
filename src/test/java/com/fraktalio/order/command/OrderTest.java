@@ -1,26 +1,11 @@
 package com.fraktalio.order.command;
 
 import com.fraktalio.api.AuditEntry;
-import com.fraktalio.order.command.api.AcceptOrderCommand;
-import com.fraktalio.order.command.api.MarkOrderAsCollectedCommand;
-import com.fraktalio.order.command.api.MarkOrderAsDeliveredCommand;
-import com.fraktalio.order.command.api.MarkOrderAsPayedCommand;
-import com.fraktalio.order.command.api.MarkOrderAsPreparedCommand;
-import com.fraktalio.order.command.api.OrderAcceptedEvent;
-import com.fraktalio.order.command.api.OrderCollectedEvent;
-import com.fraktalio.order.command.api.OrderDeliveredEvent;
-import com.fraktalio.order.command.api.OrderId;
-import com.fraktalio.order.command.api.OrderLineItem;
-import com.fraktalio.order.command.api.OrderPayedEvent;
-import com.fraktalio.order.command.api.OrderPlacedEvent;
-import com.fraktalio.order.command.api.OrderPreparedEvent;
-import com.fraktalio.order.command.api.OrderRejectedEvent;
-import com.fraktalio.order.command.api.PlaceOrderCommand;
-import com.fraktalio.order.command.api.RejectOrderCommand;
-import com.fraktalio.order.command.api.RestaurantId;
+import com.fraktalio.order.command.api.*;
 import com.fraktalio.order.web.configuration.SpringSecurityReactorMessageDispatchInterceptor;
 import org.axonframework.test.aggregate.AggregateTestFixture;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
@@ -40,9 +25,9 @@ public class OrderTest {
         targetAggregateIdentifier = new OrderId();
         restaurantId = new RestaurantId();
         auditEntry = new AuditEntry("anonymous",
-                                    Calendar.getInstance()
-                                            .getTime(),
-                                    Collections.singletonList("anonymous"));
+                Calendar.getInstance()
+                        .getTime(),
+                Collections.singletonList("anonymous"));
     }
 
     @Test
@@ -50,18 +35,18 @@ public class OrderTest {
         OrderLineItem item1 = new OrderLineItem("1", "name1", BigDecimal.TEN, 22);
 
         var placeOrderCommand = new PlaceOrderCommand(targetAggregateIdentifier,
-                                                      restaurantId,
-                                                      Collections.singletonList(item1),
-                                                      "address");
+                restaurantId,
+                Collections.singletonList(item1),
+                "address");
         var orderPlacedEvent = new OrderPlacedEvent(auditEntry, targetAggregateIdentifier,
-                                                    restaurantId,
-                                                    Collections.singletonList(item1),
-                                                    "address",
-                                                    "anonymous");
+                restaurantId,
+                Collections.singletonList(item1),
+                "address",
+                "anonymous");
 
         testFixture.given()
-                   .when(placeOrderCommand)
-                   .expectEvents(orderPlacedEvent);
+                .when(placeOrderCommand)
+                .expectEvents(orderPlacedEvent);
     }
 
     @Test
@@ -69,16 +54,16 @@ public class OrderTest {
         OrderLineItem item1 = new OrderLineItem("1", "name1", BigDecimal.TEN, 22);
 
         var orderPlacedEvent = new OrderPlacedEvent(auditEntry, targetAggregateIdentifier,
-                                                    restaurantId,
-                                                    Collections.singletonList(item1),
-                                                    "address",
-                                                    "anonymous");
+                restaurantId,
+                Collections.singletonList(item1),
+                "address",
+                "anonymous");
         var acceptOrderCommand = new AcceptOrderCommand(targetAggregateIdentifier);
         var orderAcceptedEvent = new OrderAcceptedEvent(auditEntry, targetAggregateIdentifier);
 
         testFixture.given(orderPlacedEvent)
-                   .when(acceptOrderCommand)
-                   .expectEvents(orderAcceptedEvent);
+                .when(acceptOrderCommand)
+                .expectEvents(orderAcceptedEvent);
     }
 
     @Test
@@ -86,16 +71,16 @@ public class OrderTest {
         OrderLineItem item1 = new OrderLineItem("1", "name1", BigDecimal.TEN, 22);
 
         var orderPlacedEvent = new OrderPlacedEvent(auditEntry, targetAggregateIdentifier,
-                                                    restaurantId,
-                                                    Collections.singletonList(item1),
-                                                    "address",
-                                                    "anonymous");
+                restaurantId,
+                Collections.singletonList(item1),
+                "address",
+                "anonymous");
         var rejectOrderCommand = new RejectOrderCommand(targetAggregateIdentifier);
         var orderRejectedEvent = new OrderRejectedEvent(auditEntry, targetAggregateIdentifier);
 
         testFixture.given(orderPlacedEvent)
-                   .when(rejectOrderCommand)
-                   .expectEvents(orderRejectedEvent);
+                .when(rejectOrderCommand)
+                .expectEvents(orderRejectedEvent);
     }
 
     @Test
@@ -103,21 +88,21 @@ public class OrderTest {
         OrderLineItem item1 = new OrderLineItem("1", "name1", BigDecimal.TEN, 22);
 
         var orderPlacedEvent = new OrderPlacedEvent(auditEntry, targetAggregateIdentifier,
-                                                    restaurantId,
-                                                    Collections.singletonList(item1),
-                                                    "address",
-                                                    "anonymous");
+                restaurantId,
+                Collections.singletonList(item1),
+                "address",
+                "anonymous");
         var orderAcceptedEvent = new OrderAcceptedEvent(auditEntry, targetAggregateIdentifier);
         var markOrderAsPreparedCommand = new MarkOrderAsPreparedCommand(targetAggregateIdentifier);
         var orderPreparedEvent = new OrderPreparedEvent(auditEntry, targetAggregateIdentifier,
-                                                        restaurantId,
-                                                        Collections.singletonList(item1),
-                                                        "address");
+                restaurantId,
+                Collections.singletonList(item1),
+                "address");
 
 
         testFixture.given(orderPlacedEvent, orderAcceptedEvent)
-                   .when(markOrderAsPreparedCommand)
-                   .expectEvents(orderPreparedEvent);
+                .when(markOrderAsPreparedCommand)
+                .expectEvents(orderPreparedEvent);
     }
 
     @Test
@@ -125,22 +110,22 @@ public class OrderTest {
         OrderLineItem item1 = new OrderLineItem("1", "name1", BigDecimal.TEN, 22);
 
         var orderPlacedEvent = new OrderPlacedEvent(auditEntry, targetAggregateIdentifier,
-                                                    restaurantId,
-                                                    Collections.singletonList(item1),
-                                                    "address",
-                                                    "anonymous");
+                restaurantId,
+                Collections.singletonList(item1),
+                "address",
+                "anonymous");
         var orderAcceptedEvent = new OrderAcceptedEvent(auditEntry, targetAggregateIdentifier);
         var orderPreparedEvent = new OrderPreparedEvent(auditEntry, targetAggregateIdentifier,
-                                                        restaurantId,
-                                                        Collections.singletonList(item1),
-                                                        "address");
+                restaurantId,
+                Collections.singletonList(item1),
+                "address");
         var markOrderAsCollectedCommand = new MarkOrderAsCollectedCommand(targetAggregateIdentifier);
         var orderCollectedEvent = new OrderCollectedEvent(auditEntry, targetAggregateIdentifier);
 
 
         testFixture.given(orderPlacedEvent, orderAcceptedEvent, orderPreparedEvent)
-                   .when(markOrderAsCollectedCommand)
-                   .expectEvents(orderCollectedEvent);
+                .when(markOrderAsCollectedCommand)
+                .expectEvents(orderCollectedEvent);
     }
 
     @Test
@@ -148,27 +133,27 @@ public class OrderTest {
         OrderLineItem item1 = new OrderLineItem("1", "name1", BigDecimal.TEN, 22);
 
         var orderPlacedEvent = new OrderPlacedEvent(auditEntry, targetAggregateIdentifier,
-                                                    restaurantId,
-                                                    Collections.singletonList(item1),
-                                                    "address",
-                                                    "anonymous");
+                restaurantId,
+                Collections.singletonList(item1),
+                "address",
+                "anonymous");
         var orderAcceptedEvent = new OrderAcceptedEvent(auditEntry, targetAggregateIdentifier);
         var orderPreparedEvent = new OrderPreparedEvent(auditEntry, targetAggregateIdentifier,
-                                                        restaurantId,
-                                                        Collections.singletonList(item1),
-                                                        "address");
+                restaurantId,
+                Collections.singletonList(item1),
+                "address");
         var orderCollectedEvent = new OrderCollectedEvent(auditEntry, targetAggregateIdentifier);
 
         var markOrderAsDeliveredCommand = new MarkOrderAsDeliveredCommand(targetAggregateIdentifier);
         var orderDeliveredEvent = new OrderDeliveredEvent(auditEntry, targetAggregateIdentifier,
-                                                          restaurantId,
-                                                          Collections.singletonList(item1),
-                                                          "address");
+                restaurantId,
+                Collections.singletonList(item1),
+                "address");
 
 
         testFixture.given(orderPlacedEvent, orderAcceptedEvent, orderPreparedEvent, orderCollectedEvent)
-                   .when(markOrderAsDeliveredCommand)
-                   .expectEvents(orderDeliveredEvent);
+                .when(markOrderAsDeliveredCommand)
+                .expectEvents(orderDeliveredEvent);
     }
 
     @Test
@@ -176,31 +161,31 @@ public class OrderTest {
         OrderLineItem item1 = new OrderLineItem("1", "name1", BigDecimal.TEN, 22);
 
         var orderPlacedEvent = new OrderPlacedEvent(auditEntry, targetAggregateIdentifier,
-                                                    restaurantId,
-                                                    Collections.singletonList(item1),
-                                                    "address",
-                                                    "anonymous");
+                restaurantId,
+                Collections.singletonList(item1),
+                "address",
+                "anonymous");
         var orderAcceptedEvent = new OrderAcceptedEvent(auditEntry, targetAggregateIdentifier);
         var orderPreparedEvent = new OrderPreparedEvent(auditEntry, targetAggregateIdentifier,
-                                                        restaurantId,
-                                                        Collections.singletonList(item1),
-                                                        "address");
+                restaurantId,
+                Collections.singletonList(item1),
+                "address");
         var orderCollectedEvent = new OrderCollectedEvent(auditEntry, targetAggregateIdentifier);
         var orderDeliveredEvent = new OrderDeliveredEvent(auditEntry, targetAggregateIdentifier,
-                                                          restaurantId,
-                                                          Collections.singletonList(item1),
-                                                          "address");
+                restaurantId,
+                Collections.singletonList(item1),
+                "address");
 
         var markOrderAsPayedCommand = new MarkOrderAsPayedCommand(targetAggregateIdentifier);
         var orderPayedEvent = new OrderPayedEvent(auditEntry, targetAggregateIdentifier);
 
 
         testFixture.given(orderPlacedEvent,
-                          orderAcceptedEvent,
-                          orderPreparedEvent,
-                          orderCollectedEvent,
-                          orderDeliveredEvent)
-                   .when(markOrderAsPayedCommand)
-                   .expectEvents(orderPayedEvent);
+                        orderAcceptedEvent,
+                        orderPreparedEvent,
+                        orderCollectedEvent,
+                        orderDeliveredEvent)
+                .when(markOrderAsPayedCommand)
+                .expectEvents(orderPayedEvent);
     }
 }
