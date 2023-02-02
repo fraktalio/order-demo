@@ -36,10 +36,6 @@ axon:
 order:
   snapshot-trigger-treshold-order: 200
 management:
-  metrics:
-    export:
-      prometheus:
-        enabled: true
   endpoint:
     metrics:
       enabled: true
@@ -49,5 +45,9 @@ management:
     web:
       exposure:
         include: "*"
+  prometheus:
+    metrics:
+      export:
+        enabled: true
 
 

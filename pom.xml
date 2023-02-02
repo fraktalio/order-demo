@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.5</version>
+        <version>3.0.1</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.fraktalio</groupId>
@@ -15,8 +15,8 @@
     <description>Order Management System - Demo</description>
 
     <properties>
-        <java.version>11</java.version>
-        <axon.version>4.6.2</axon.version>
+        <java.version>17</java.version>
+        <axon.version>4.7.0</axon.version>
         <testcontainers.version>1.17.6</testcontainers.version>
         <skipIntegrationTests>true</skipIntegrationTests>
     </properties>
@@ -51,10 +51,6 @@
             <groupId>org.axonframework</groupId>
             <artifactId>axon-test</artifactId>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.axonframework.extensions.tracing</groupId>
-            <artifactId>axon-tracing-spring-boot-starter</artifactId>
         </dependency>
 
         <!-- Spring -->

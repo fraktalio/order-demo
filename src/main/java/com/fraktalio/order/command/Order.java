@@ -1,27 +1,7 @@
 package com.fraktalio.order.command;
 
 import com.fraktalio.api.AuditEntry;
-import com.fraktalio.order.command.api.AcceptOrderCommand;
-import com.fraktalio.order.command.api.ExceptionStatusCode;
-import com.fraktalio.order.command.api.MarkOrderAsCollectedCommand;
-import com.fraktalio.order.command.api.MarkOrderAsDeliveredCommand;
-import com.fraktalio.order.command.api.MarkOrderAsExpiredCommand;
-import com.fraktalio.order.command.api.MarkOrderAsPayedCommand;
-import com.fraktalio.order.command.api.MarkOrderAsPreparedCommand;
-import com.fraktalio.order.command.api.OrderAcceptedEvent;
-import com.fraktalio.order.command.api.OrderCollectedEvent;
-import com.fraktalio.order.command.api.OrderDeliveredEvent;
-import com.fraktalio.order.command.api.OrderExpiredEvent;
-import com.fraktalio.order.command.api.OrderId;
-import com.fraktalio.order.command.api.OrderLineItem;
-import com.fraktalio.order.command.api.OrderPayedEvent;
-import com.fraktalio.order.command.api.OrderPlacedEvent;
-import com.fraktalio.order.command.api.OrderPreparedEvent;
-import com.fraktalio.order.command.api.OrderRejectedEvent;
-import com.fraktalio.order.command.api.OrderState;
-import com.fraktalio.order.command.api.PlaceOrderCommand;
-import com.fraktalio.order.command.api.RejectOrderCommand;
-import com.fraktalio.order.command.api.RestaurantId;
+import com.fraktalio.order.command.api.*;
 import org.axonframework.commandhandling.CommandExecutionException;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
@@ -67,11 +47,11 @@ class Order {
     @CommandHandler
     Order(PlaceOrderCommand command, @MetaDataValue(value = "auditEntry") AuditEntry auditEntry) {
         apply(new OrderPlacedEvent(auditEntry,
-                                   command.getTargetAggregateIdentifier(),
-                                   command.getRestaurantId(),
-                                   command.getOrderLineItems(),
-                                   command.getDeliveryAddress(),
-                                   auditEntry.getWho()));
+                command.getTargetAggregateIdentifier(),
+                command.getRestaurantId(),
+                command.getOrderLineItems(),
+                command.getDeliveryAddress(),
+                auditEntry.getWho()));
     }
 
     @EventSourcingHandler
@@ -117,10 +97,10 @@ class Order {
     void on(MarkOrderAsPreparedCommand command, @MetaDataValue(value = "auditEntry") AuditEntry auditEntry) {
         if (OrderState.ACCEPTED == orderState) {
             apply(new OrderPreparedEvent(auditEntry,
-                                         command.getTargetAggregateIdentifier(),
-                                         restaurantId,
-                                         orderLineItems,
-                                         deliveryAddress));
+                    command.getTargetAggregateIdentifier(),
+                    restaurantId,
+                    orderLineItems,
+                    deliveryAddress));
         } else {
             throw new UnsupportedOperationException(ExceptionStatusCode.ORDER_NOT_ACCEPTED.name());
         }
@@ -151,10 +131,10 @@ class Order {
     void on(MarkOrderAsDeliveredCommand command, @MetaDataValue(value = "auditEntry") AuditEntry auditEntry) {
         if (OrderState.COLLECTED == orderState) {
             apply(new OrderDeliveredEvent(auditEntry,
-                                          command.getTargetAggregateIdentifier(),
-                                          restaurantId,
-                                          orderLineItems,
-                                          deliveryAddress));
+                    command.getTargetAggregateIdentifier(),
+                    restaurantId,
+                    orderLineItems,
+                    deliveryAddress));
         } else {
             throw new UnsupportedOperationException(ExceptionStatusCode.ORDER_NOT_COLLECTED.name());
         }

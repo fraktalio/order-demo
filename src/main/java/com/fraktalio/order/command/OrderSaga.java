@@ -1,28 +1,10 @@
 package com.fraktalio.order.command;
 
-import com.fraktalio.courier.command.api.Address;
-import com.fraktalio.courier.command.api.CreateShipmentCommand;
-import com.fraktalio.courier.command.api.ShipmentAssignedEvent;
-import com.fraktalio.courier.command.api.ShipmentDeliveredEvent;
-import com.fraktalio.courier.command.api.ShipmentExpiredEvent;
-import com.fraktalio.courier.command.api.ShipmentId;
-import com.fraktalio.order.command.api.AcceptOrderCommand;
-import com.fraktalio.order.command.api.MarkOrderAsCollectedCommand;
-import com.fraktalio.order.command.api.MarkOrderAsDeliveredCommand;
-import com.fraktalio.order.command.api.MarkOrderAsExpiredCommand;
-import com.fraktalio.order.command.api.MarkOrderAsPreparedCommand;
-import com.fraktalio.order.command.api.OrderId;
-import com.fraktalio.order.command.api.OrderPlacedEvent;
-import com.fraktalio.order.command.api.OrderPreparedEvent;
-import com.fraktalio.order.command.api.RejectOrderCommand;
-import com.fraktalio.restaurant.command.api.PlaceRestaurantOrderCommand;
+import com.fraktalio.courier.command.api.*;
+import com.fraktalio.order.command.api.*;
 import com.fraktalio.restaurant.command.api.RestaurantId;
-import com.fraktalio.restaurant.command.api.RestaurantOrderDetails;
-import com.fraktalio.restaurant.command.api.RestaurantOrderId;
-import com.fraktalio.restaurant.command.api.RestaurantOrderLineItem;
-import com.fraktalio.restaurant.command.api.RestaurantOrderPlacedEvent;
-import com.fraktalio.restaurant.command.api.RestaurantOrderPreparedEvent;
-import com.fraktalio.restaurant.command.api.RestaurantOrderRejectedEvent;
+import com.fraktalio.restaurant.command.api.*;
+import jakarta.persistence.Transient;
 import org.axonframework.config.ProcessingGroup;
 import org.axonframework.extensions.reactor.commandhandling.gateway.ReactorCommandGateway;
 import org.axonframework.modelling.saga.EndSaga;
@@ -33,7 +15,6 @@ import org.axonframework.spring.stereotype.Saga;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.stream.Collectors;
-import javax.persistence.Transient;
 
 @Saga
 @ProcessingGroup("order-saga")
@@ -70,15 +51,15 @@ public class OrderSaga {
         SagaLifecycle.associateWith("restaurantOrderId", restaurantOrderId.toString());
 
         var restaurantOrderLineItems = event.getOrderLineItems().stream()
-                                            .map(oli -> new RestaurantOrderLineItem(oli.getQuantity(),
-                                                                                    oli.getMenuItemId(),
-                                                                                    oli.getName())).collect(Collectors
-                                                                                                                    .toList());
+                .map(oli -> new RestaurantOrderLineItem(oli.getQuantity(),
+                        oli.getMenuItemId(),
+                        oli.getName())).collect(Collectors
+                        .toList());
         var placeRestaurantOrderCommand = new PlaceRestaurantOrderCommand(new RestaurantId(event.getRestaurantId()
-                                                                                                .getIdentifier()),
-                                                                          new RestaurantOrderDetails(
-                                                                                  restaurantOrderLineItems),
-                                                                          restaurantOrderId);
+                .getIdentifier()),
+                new RestaurantOrderDetails(
+                        restaurantOrderLineItems),
+                restaurantOrderId);
         commandGateway.send(placeRestaurantOrderCommand).block();
     }
 
@@ -106,7 +87,7 @@ public class OrderSaga {
         this.shipmentId = new ShipmentId();
         SagaLifecycle.associateWith("shipmentId", shipmentId.toString());
         var createShipmentCommand = new CreateShipmentCommand(shipmentId, new Address(event.getDeliveryAddress(),
-                                                                                      event.getDeliveryAddress()));
+                event.getDeliveryAddress()));
         commandGateway.send(createShipmentCommand).block();
     }
 

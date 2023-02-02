@@ -1,9 +1,10 @@
 package com.fraktalio.order.query;
 
 
+import jakarta.persistence.Embeddable;
+
 import java.math.BigDecimal;
 import java.util.Objects;
-import javax.persistence.Embeddable;
 
 @Embeddable
 class OrderLineItemEntity {

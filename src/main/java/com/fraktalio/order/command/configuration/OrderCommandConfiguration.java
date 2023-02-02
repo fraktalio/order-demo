@@ -67,7 +67,7 @@ public class OrderCommandConfiguration {
     EventCountSnapshotTriggerDefinition orderSnapshotTriggerDefinition(Snapshotter snapshotter,
                                                                        OrderProperties orderProperties) {
         return new EventCountSnapshotTriggerDefinition(snapshotter,
-                                                       orderProperties.getSnapshotTriggerThresholdOrder());
+                orderProperties.getSnapshotTriggerThresholdOrder());
     }
 
     /***************************************************************************/
